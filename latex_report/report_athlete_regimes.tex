@@ -1,0 +1,446 @@
+\documentclass[]{article}
+
+% PACKAGES
+
+% correct encoding and typography
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% math
+\usepackage{amsfonts, latexsym, mathtools, amsthm, amssymb, amscd}
+\usepackage{euscript}
+\usepackage{esvect}
+\usepackage{bm}
+\usepackage{physics}
+
+% aesthetics color options
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}                           
+
+% correct encoding and typography
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc, matrix}
+
+
+% math
+\usepackage{amsfonts, latexsym, mathtools, amsthm, amssymb, amscd}
+\usepackage{euscript}
+\usepackage{esvect}
+\usepackage{bm}
+\usepackage{physics}
+
+% aesthetics color options
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{microtype}
+
+% to access the last page
+\usepackage{lastpage}
+
+% better document formatting
+\usepackage{fancyhdr}
+\usepackage[a4paper, right=1in, left=1in, bottom=1.2in, top=1.2in, centering]{geometry}
+\usepackage{fullpage}
+
+\usepackage{datetime2}
+
+% better stylistic formatting
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{longtable}
+\usepackage{csquotes}
+
+% embedding and referencing
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,citecolor=blue,urlcolor =black,linkbordercolor={1 0 0}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Command formatting for ease-of-life
+
+% new math symbols taking no arguments
+\newcommand{\minus}{\smallsetminus}
+\newcommand{\dotp}{\boldsymbol{\cdot}}
+
+%redefined math symbols taking no arguments
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\implies}{\Rightarrow}
+
+% Arrows
+\newcommand{\from}{\leftarrow}
+\newcommand{\ffrom}{\longleftarrow}
+\newcommand{\goesto}{\rightsquigarrow}
+\newcommand{\into}{\hookrightarrow}
+
+% Basic bbface (blackboard bold) lettering command:
+\newcommand{\bbb}[1]{\ensuremath{\mathbb{#1}}}
+
+% Boldface lettering command used for vectors:
+\newcommand{\bvec}[1]{\ensuremath{\mathbf{#1}}}
+
+\newcommand{\bN}{\bbb{N}}
+\newcommand{\bR}{\bbb{R}}
+\newcommand{\bZ}{\bbb{Z}}
+\newcommand{\bH}{\bbb{H}}
+\newcommand{\oo}{\ensuremath{\emptyset}}
+\newcommand{\bQ}{\bbb{Q}}
+\newcommand{\bC}{\bbb{C}}
+\newcommand{\bF}{\bbb{F}}
+\newcommand{\bI}{\bbb{I}}
+\newcommand{\bP}{\bbb{P}}
+\newcommand{\bE}{\bbb{E}}
+\newcommand{\bT}{\bbb{T}}
+
+
+\newcommand{\vx}{\bvec{x}}
+\newcommand{\vy}{\bvec{y}}
+\newcommand{\vuu}{\bvec{u}}
+\newcommand{\vvv}{\bvec{v}}
+\newcommand{\vw}{\bvec{w}}
+\newcommand{\vaa}{\bvec{a}}
+\newcommand{\vbb}{\bvec{b}}
+\newcommand{\vo}{\bvec{o}}
+\newcommand{\ve}{\bvec{e}}
+\newcommand{\vp}{\bvec{p}}
+\newcommand{\vi}{\bvec{i}}
+\newcommand{\vz}{\bvec{z}}
+\newcommand{\vt}{\bvec{t}}
+
+
+% Basic cal lettering
+\newcommand{\ccc}[1]{\ensuremath{\mathcal{#1}}}
+
+\newcommand{\cE}{\ccc{E}}
+\newcommand{\cM}{\ccc{M}}
+\newcommand{\cP}{\ccc{P}}
+\newcommand{\cV}{\ccc{V}}
+\newcommand{\cO}{\ccc{O}}
+
+
+% Basic frak lettering
+\newcommand{\fff}[1]{\ensuremath{\mathfrak{#1}}}
+
+\newcommand{\mm}{\mathfrak{m}}
+\newcommand{\pp}{\mathfrak{p}}
+
+% Other lettering
+\newcommand{\GL}{\mathit{GL}}
+\newcommand{\FL}{{\mathcal{} F}{\ell}_n}
+\newcommand{\SO}{\mathit{SO}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ind}{\mathbf{1}}
+
+% some operators and delimiters
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\EE}{E}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\CSet}{Set}
+\DeclareMathOperator{\Cmap}{map}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Int}{int}
+
+% Other more involved shortcuts
+
+%for overline math
+\newcommand{\ol}[1]{{\overline{#1}}}
+
+%redefined math symbols taking arguments
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+%for easy 2 x 2 matrices
+\newcommand{\twobytwo}[1]{\left[\begin{array}{@{}cc@{}}#1\end{array}\right]}
+
+%for easy column vectors of size 2
+\newcommand{\tworow}[1]{\left[\begin{array}{@{}c@{}}#1\end{array}\right]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Below are the theorem, definition, example, lemma, etc. body types.
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some formatting tidbits for margins, paragraphs, and removing orphans
+
+% make widows and orphans rare
+\clubpenalty =10000
+\widowpenalty =10000
+
+% formatting of paragraphs and separation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\headheight}{13.6pt}
+
+\setlength\marginparwidth{2.2in}
+\setlength\marginparsep{1mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Styles and colors
+\tikzset{
+	state/.style   ={draw,rounded corners,thick,align=center,
+		minimum width=3.2cm,minimum height=1.15cm,fill=white},
+	input/.style   ={draw,rounded corners,thick,dashed,align=center,
+		minimum width=3.2cm,minimum height=1.0cm,fill=gray!10},
+	derived/.style ={draw,rounded corners,thick,densely dashed,align=center,
+		minimum width=3.2cm,minimum height=1.0cm,fill=gray!5},
+	edgeplus/.style={-Stealth,very thick,draw=ForestGreen,shorten >=2pt,shorten <=2pt},
+	edgeminus/.style={-Stealth,very thick,draw=BrickRed,shorten >=2pt,shorten <=2pt},
+	% If you *do* want tiny '+'/'−' labels back on edges, uncomment:
+	% lab/.style={font=\scriptsize,fill=white,inner sep=1pt}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{\vspace{-1.0em}A Coupled Six--State Athlete Model for Training, Sleep, Recovery, and Risk\\
+	\large (Sections 1--3: Introduction, Overview, Assumptions)}
+\author{}
+\date{}
+
+\begin{document}
+
+	\maketitle
+	\vspace{-2.0em}
+	
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Introduction}
+	Athletic performance emerges from the three-pronged tug-of-war between \emph{training stimulus}, \emph{recovery}, and \emph{risk}. 
+	
+	Our goal is to build a compact, mechanistic model that can evaluate \emph{training--rest regimes} and answer operational questions such as: When does a given microcycle peak performance? How costly is late--evening high intensity on next--day readiness? What taper length best converts prior load into performance at a target event while respecting injury risk?
+	
+	\paragraph{Problem framing.}
+	The problem statement proposes comparing qualitatively distinct regimes (e.g., high--intensity early vs.\ late sessions, split sessions vs.\ single sessions, alternating hard/easy days, dedicated recovery or taper periods). We formalize these as exogenous, time--varying input functions for training, sleep, and context (stress, nutrition), then follow their consequences through a system of coupled ODE states. The model is designed to be \emph{interpretable}, \emph{calibratable on athlete logs}, and \emph{portable} across sports.
+	
+	\paragraph{Design philosophy and precedent.}
+	We draw on established ideas from training--response modeling (fitness--fatigue/impulse--response), tapering, concurrent training interactions, sleep effects on performance, and load--related injury risk \cite{Banister1975,Busso2003,Mujika2003,Hickson1980,Fullagar2015,Buchheit2014,Gabbett2016,Skiba2012}.
+	
+	
+	\section{Brief overview of our dynamic model}
+	\label{sec:model-overview}
+	
+	\subsection*{System architecture and figure}
+	Our system is organized as a pipeline with three layers:  
+	\emph{(i) exogenous inputs} that the coach/athlete controls (left),  
+	\emph{(ii) a six-state ODE core} capturing trainable capacity, fatigue, sleep and risk (center), and  
+	\emph{(iii) a derived readiness/output} for decision-making (right). The signed wiring diagram in
+	Figure~\ref{fig:overview-wiring} makes these couplings explicit: \textcolor{ForestGreen}{green} = positive effect; \textcolor{BrickRed}{red} = negative effect.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=\linewidth]{coupling_diagram_1.png}
+		\caption{Left–center–right architecture. Left: five exogenous inputs; Center: six ODE states grouped by row; Right: readiness $P(t)$. Colors denote effect signs.}
+		\label{fig:overview-wiring}
+	\end{figure}
+
+	
+	\subsection*{Left column: exogenous inputs (what the coach controls)}
+	Each input is a bounded, time-varying control signal. We keep units flexible and normalize when needed for calibration.
+	\begin{description}[leftmargin=1.7em]
+		\item[\textbf{Training composition \boldmath$u_E(t),u_H(t),u_S(t)$}.] Session intensity/volume streams for endurance (e.g., Zone time or TRIMP), high‑intensity/anaerobic work (intervals/HIIT), and strength/plyometrics (e.g., tonnage or explosive contacts). These are the \emph{primary} stimuli for adaptation and the main drivers of acute fatigue and micro‑damage \cite{Banister1975,Busso2003,Hickson1980}.
+		\item[\textbf{Bedtime proximity kernel \boldmath$B(t)$}.] A short memory of training near lights‑out that reduces sleep efficiency that night \cite{Fullagar2015}. Operationally, $B(t)$ will later be computed by convolving recent intensity with an exponentially decaying kernel that weights the final hours before bedtime more heavily.
+		\item[\textbf{Sleep schedule \boldmath$s(t)\!\in\![0,1]$}.] An on/off indicator of sleep opportunity (night sleep and optional naps). During $s(t)=1$ the model pays down fatigue/sleep debt and accelerates tissue repair.
+		\item[\textbf{Nutrition/availability \boldmath$n(t)$}.] A compact proxy for energy/protein availability and timing (e.g., carbohydrate after HIIT, protein after strength). We use it to gate remodeling and reduce damage accumulation during sleep and rest.
+		\item[\textbf{Context stress \boldmath$x(t)$}.] Non‑training stressors (travel, exams, heat, life stress). This input increases central load and impairs sleep quality; it is an external “tax” on recovery \cite{Buchheit2014}.
+	\end{description}
+
+	\subsection*{Center: the six‑state ODE core (what the system does)}
+	The central panel contains six dynamical states grouped by theme (rows). We postpone explicit forms until Section~4; here we state what each encodes and how it is observed.
+	
+	\paragraph{Top row — Trainable capacities.}
+	\begin{description}[leftmargin=1.7em]
+		\item[\textbf{Aerobic adaptation \boldmath$A(t)$}.] Normalized $(0\!-\!1)$ “engine” for endurance performance (e.g., \%~$\dot{V}\!O_2$ improvements, time‑to‑exhaustion). Stimulated mainly by $u_E$ and $u_H$ with diminishing returns; gated by recovery. Proxies: best‑effort curves, critical‑power modeling, heart‑rate kinetics \cite{Banister1975,Skiba2012}.
+		\item[\textbf{Neuromuscular/strength adaptation \boldmath$N(t)$}.] Normalized $(0\!-\!1)$ capacity for force/power (e.g., 1RM, CMJ, sprint split). Stimulated by $u_S$ and partly by $u_H$; subject to endurance–strength interference when $u_E$ is high \cite{Hickson1980}. Also gated by recovery.
+	\end{description}
+	
+	\paragraph{Middle row — Fatigue (two time scales).}
+	\begin{description}[leftmargin=1.7em]
+		\item[\textbf{Acute fatigue \boldmath$F_a(t)$}.] Fast time scale (hours–days). Rises with session load ($u_E,u_H,u_S$), clears quickly (especially during sleep).
+		\item[\textbf{Chronic fatigue \boldmath$F_c(t)$}.] Slow time scale (days–weeks). Accumulates when $F_a$ is repeatedly unresolved (monotony), clears slowly with sustained good sleep and lighter training \cite{Busso2003}.
+	\end{description}
+	
+	\paragraph{Bottom row — Sleep and tissue risk.}
+	\begin{description}[leftmargin=1.7em]
+		\item[\textbf{Sleep debt / quality \boldmath$S(t)$}.] Larger $S$ means worse cumulative sleep state (more debt/lower quality). Increases while awake and after heavy training; decreases during sleep with an efficiency reduced by $B(t)$ \cite{Fullagar2015}.
+		\item[\textbf{Injury micro‑damage / hazard \boldmath$I(t)$}.] A continuous proxy for tissue stress/inflammation (not a discrete injury). Rises with high‑impact/HIIT/strength loading and with fatigue‑mediated poor mechanics; falls with time, sleep, and nutrition \cite{Gabbett2016}.
+	\end{description}
+
+	\subsection*{Right column: derived readiness/output (what we optimize)}
+	\textbf{Readiness \boldmath$P(t)$} aggregates sport‑specific performance potential from the states above. We use $P(t)$ to compare regimes, design tapers, and schedule recovery days; detailed forms appear in Section~4.
+	
+	\subsection*{Coupling map (how pieces talk)}
+	The directed arrows in Figure~\ref{fig:overview-wiring} implement the following sign‑rules and qualitative nonlinearities:
+	\begin{enumerate}[label=\textbf{C\arabic*}. ,leftmargin=1.75em]
+		\item \textbf{Training stimulates capacity} (\textcolor{ForestGreen}{+}): $u_E,u_H \!\to\! A$; $u_S,u_H \!\to\! N$ with saturating gains and \emph{diminishing returns}. High $u_E$ mildly interferes with $N$ (concurrent‑training effect) \cite{Hickson1980}.
+		\item \textbf{Training creates load} (\textcolor{ForestGreen}{+}): all $u_\cdot \!\to\! F_a$ and, via accumulation, $F_a\!\to\!F_c$.
+		\item \textbf{Load creates micro‑damage} (\textcolor{ForestGreen}{+}): $u_\cdot$, $F_a$, and $F_c$ raise $I$ (mechanical + metabolic + poor‑mechanics channels).
+		\item \textbf{Sleep repairs} (\textcolor{ForestGreen}{+} into recovery, \textcolor{BrickRed}{-} into debts): $s(t)$ \emph{reduces} $S$, $F_a$, $F_c$ and $I$. But late training worsens that repair: larger $B(t)$ \emph{reduces} the sleep‑driven clearance of $S$, $F_a$, $F_c$, $I$ \cite{Fullagar2015}.
+		\item \textbf{Sleep debt throttles adaptation} (\textcolor{BrickRed}{-}): larger $S$ suppresses gains in $A,N$ and increases $F_a,F_c$ (more wakefulness/poorer sleep $\Rightarrow$ higher perceived load) \cite{Busso2003,Fullagar2015}.
+		\item \textbf{Micro‑damage suppresses adaptation} (\textcolor{BrickRed}{-}): high $I$ reduces realized gains in $A,N$ and contributes to readiness penalties \cite{Gabbett2016}.
+		\item \textbf{Context stress loads the system} (\textcolor{ForestGreen}{+} into $F_c,S$): travel/heat/psychological load raises central fatigue and impairs sleep quality \cite{Buchheit2014}.
+		\item \textbf{Nutrition improves remodeling} (\textcolor{BrickRed}{-} into $I$): adequate energy/protein reduces tissue damage and speeds clearance.
+		\item \textbf{Readiness aggregation}: $A,N$ contribute positively; $F_a,F_c,S,I$ subtract with task‑specific weights.
+	\end{enumerate}
+	All couplings will be implemented with smooth, saturating response functions to ensure state positivity and realistic ceilings \cite{Busso2003}.
+	
+	\subsection*{Regimes as inputs (how we encode the schedules)}
+	We represent regimes by specifying the shapes and timing of the five input streams. Below are canonical examples we will test, using the exact left‑column elements of Figure~\ref{fig:overview-wiring}.
+	
+	\paragraph{R1 — Early‑morning HIIT (7–9 AM), no nap.}
+	\emph{Encoding:} A short $u_H$ pulse near wake time; low $B(t)$; $s(t)$ is one nightly block.
+	\emph{Expected signature:} Strong $N$ and $A$ stimulus; modest $F_a$ spike; minimal impact on that night’s sleep; next‑day $P$ depends on preceding night’s $S$.
+	
+	\paragraph{R2 — Evening moderate/high intensity (7–9 PM).}
+	\emph{Encoding:} $u_E$ or $u_H$ pulse ending near lights-out $\Rightarrow$ large $B(t)$; standard $s(t)$.  
+	\emph{Expected signature:} Reduced sleep‑efficiency that night (slower decay of $S,F_a,F_c,I$); next‑day $P$ depressed; cumulative late‑evening sessions elevate chronic load.
+	
+	\paragraph{R3 — Split session (light AM endurance + PM strength).}
+	\emph{Encoding:} Small morning $u_E$ pulse; larger afternoon/evening $u_S$ pulse raising $B(t)$.  
+	\emph{Expected signature:} Good $N$ gains with some interference from $u_E$; higher $I$ and $S$ on PM‑strength days; performance trade‑off between power gains and sleep.
+	
+	\paragraph{R4 — Alternating days (hard/easy microcycle).}
+	\emph{Encoding:} Hard day: large $u_\cdot$ pulses; Easy day: minimal $u_\cdot$, $s(t)$ may include a nap; $B(t)$ small on easy days.  
+	\emph{Expected signature:} $F_a$ rises on hard days then decays; $F_c$ stabilizes or falls; $I$ accumulates more slowly; $P$ shows saw‑tooth with higher weekly average.
+	
+	\paragraph{R5 — Midday training (1–3 PM).}
+	\emph{Encoding:} $u_E$ or mixed session far from bedtime $\Rightarrow$ small $B(t)$.  
+	\emph{Expected signature:} Balanced load–recovery; relatively low $S$; favorable steady‑state $P$ with low $I$ accrual.
+	
+	\paragraph{R6 — Taper into event week (volume down, intensity maintained).}
+	\emph{Encoding:} Multiply $u_E,u_S$ volumes by a decaying factor; maintain short $u_H$ stimuli; enforce early‑day sessions to keep $B(t)$ small.  
+	\emph{Expected signature:} $F_a\downarrow$, then $F_c\downarrow$; $S$ improves; $A,N$ maintained; $I$ decays; peak in $P$ near event \cite{Mujika2003}.
+	
+	\paragraph{R7 — Sleep‑extension and nap policy.}
+	\emph{Encoding:} Increase nightly $s(t)$ duration and add a short post‑lunch nap block; enforce low‑$B(t)$ by moving $u_\cdot$ earlier.  
+	\emph{Expected signature:} Faster clearance of $F_a,F_c,I$; sustained reduction in $S$; higher readiness envelope for the same weekly load \cite{Fullagar2015}.
+	
+	\paragraph{R8 — High‑volume polarized vs.\ pyramidal endurance blocks.}
+	\emph{Encoding:} Shift weight among $u_E$ (easy volume) and $u_H$ (interval density) with identical weekly “TRIMP”.  
+	\emph{Expected signature:} Comparable $A$ gains but different $F_a,S$ trajectories; polarized blocks target higher $P$ with lower $I$ at the same load.
+	
+	\medskip
+	These regime encodings are \emph{inputs only}; the explicit ODEs that transform them into state trajectories will be written in Section~\ref{sec:model-development}. Our analysis will compare regimes by their steady‑state $P$ envelopes, peaks, time‑to‑peak, and risk measures (e.g., time above $I$ thresholds).
+	
+	
+	
+	\section{Assumptions}
+	We separate assumptions into: (i) global modeling assumptions; (ii) regime/input assumptions; and (iii) state--specific assumptions that will directly inform Section~4 when we write the ODEs.
+	
+	\subsection{Global modeling assumptions}
+	\begin{enumerate}[label=\textbf{G\arabic*.}]
+		\item \textbf{Single ``well--mixed'' athlete:} we model one athlete as a single dynamical unit; tissue and organ micro--heterogeneity are absorbed into parameters.
+		\item \textbf{Time scales:} processes evolve on hours--to--weeks; we do not include circannual or multi--year remodeling here.
+		\item \textbf{Non--dimensionalization:} states (\(A,N,S,I\)) are scaled to \([0,1]\); \(F_a,F_c\) are nonnegative with practical upper bounds from data.
+		\item \textbf{Regularity:} inputs \(u_E,u_H,u_S,s,n,x\) are piecewise continuous and bounded; regime switches are scheduled or threshold--triggered (Section~4).
+		\item \textbf{Saturations:} all response functions are monotone and saturating (e.g., Hill/Michaelis--Menten--like) to enforce physiological ceilings and diminishing returns \cite{Busso2003,Mujika2003}.
+		\item \textbf{Positivity and invariance:} the ODE right--hand sides are constructed to keep physically meaningful ranges invariant (no negative sleep debt or negative injury, etc.).
+		\item \textbf{No explicit delays (first pass):} distributed training effects are approximated by multiple time scales (acute \(\to\) chronic) rather than explicit delay differential equations \cite{Busso2003}.
+		\item \textbf{Observables:} we map proxies to states for calibration: critical power/\(W'\) or best efforts to \(A\), jump/1RM surrogates to \(N\), session RPE and neuromuscular decrements to \(F_a\), HRV/sleep metrics to \(R/S\), soreness/incident logs to \(I\) \cite{Buchheit2014,Skiba2012,Fullagar2015}.
+		\item \textbf{Noise and shocks:} stochastic shocks (illness, travel) are represented through \(x(t)\); we neglect process noise in the first pass.
+	\end{enumerate}
+	
+	\subsection{Regime and input assumptions}
+	\begin{enumerate}[label=\textbf{R\arabic*.}]
+		\item \textbf{Training decomposition:} total load is \(u(t)=u_E(t)+u_H(t)+u_S(t)\); each component differs in \emph{how} it stimulates capacity vs.\ damage and in energy cost \cite{Banister1975,Hickson1980}.
+		\item \textbf{Sleep window:} \(s(t)=1\) during scheduled sleep (including naps); nightly sleep efficiency is reduced by a \emph{bedtime--proximity} kernel \(B(t)\) that integrates training intensity close to bedtime.
+		\item \textbf{Nutrition simplification:} \(n(t)\) represents energy/protein availability; we will later let \(n(t)\) gate recovery and reduce damage accrual.
+		\item \textbf{Context stress:} \(x(t)\) aggregates non--training stressors; it increases fatigue and sleep debt and (weakly) raises micro--damage (e.g., travel).
+		\item \textbf{Hybrid switching (optional):} regimes are either prescribed on a calendar or triggered by internal thresholds, e.g., if a hazard score from \(F_a,F_c,S,I\) exceeds a limit, switch to recovery.
+	\end{enumerate}
+	
+	\subsection{State--specific assumptions (to guide the ODE forms later)}
+	\paragraph{Aerobic adaptation \(A(t)\).}
+	\begin{enumerate}[label=\textbf{A\arabic*.}]
+		\item Stimulated primarily by \(u_E\) and \(u_H\); the effect is saturating and subject to diminishing returns.
+		\item Gains are \emph{gated} by recovery: high \(S\) (poor sleep) and high \(F_c\) reduce effective adaptation \cite{Busso2003,Fullagar2015}.
+		\item Detrains slowly toward a baseline in the absence of stimulus.
+		\item Elevated damage \(I\) suppresses realized gains (e.g., protective downregulation) \emph{and} can transiently impede training quality.
+	\end{enumerate}
+	
+	\paragraph{Neuromuscular adaptation \(N(t)\).}
+	\begin{enumerate}[label=\textbf{N\arabic*.}]
+		\item Stimulated by \(u_S\) and, secondarily, by \(u_H\) (shared neuromuscular stress).
+		\item Endurance load \(u_E\) causes a modest \emph{interference} with strength/power gains (modeled later as a damping factor) \cite{Hickson1980}.
+		\item Gains are gated by \(S\) and \(F_c\) (poor sleep/central fatigue slow synthesis and motor learning).
+		\item Detrains with a time constant distinct from \(A\) (typically faster).
+		\item Elevated \(I\) directly suppresses \(N\) gains (pain/inflammation limiting heavy work).
+	\end{enumerate}
+	
+	\paragraph{Acute fatigue \(F_a(t)\).}
+	\begin{enumerate}[label=\textbf{F\arabic*.}]
+		\item Increases with all training components; intensity--heavy work contributes disproportionately \((u_H,u_S)\).
+		\item Clears quickly with time and \emph{faster} under good sleep (\(s(t)\)) and good recovery state.
+		\item Low energy/nutrition (via \(n(t)\)) and high \(S\) blunt clearance.
+	\end{enumerate}
+	
+	\paragraph{Chronic fatigue \(F_c(t)\).}
+	\begin{enumerate}[label=\textbf{C\arabic*.}]
+		\item Accumulates from unresolved \(F_a\) (low--pass filtered fatigue).
+		\item Clears slowly with time and sleep; sensitive to monotony/psychological factors (absorbed into \(x(t)\)).
+		\item High \(F_c\) gates down \(A\) and \(N\) gains \cite{Busso2003}.
+	\end{enumerate}
+	
+	\paragraph{Sleep debt / quality \(S(t)\).}
+	\begin{enumerate}[label=\textbf{S\arabic*.}]
+		\item Accumulates while awake and with strenuous training days (via arousal and thermoregulation burdens).
+		\item Decreases during sleep; the nightly paydown is reduced when \(B(t)\) is large (late training) \cite{Fullagar2015}.
+		\item Higher \(S\) raises \(F_a\) and \(F_c\) (worse sleep \(\Rightarrow\) more fatigue) and gates down capacity gains.
+	\end{enumerate}
+	
+	\paragraph{Injury micro--damage \(I(t)\).}
+	\begin{enumerate}[label=\textbf{I\arabic*.}]
+		\item Increases with mechanical/metabolic stress, particularly \(u_S\) and high--intensity efforts \(u_H\).
+		\item Accrual is amplified by high \(F_a\) or \(F_c\) (poor mechanics, compromised tissue resilience).
+		\item Clears with time, sleep, and adequate nutrition \(n(t)\) (remodeling).
+		\item A (soft) hazard from \(I\) contributes to regime switching/guard conditions in Section~4 and to performance penalties \cite{Gabbett2016}.
+	\end{enumerate}
+	
+	\paragraph{Derived outputs (for later use).}
+	We will define sport--specific \emph{readiness} signals \(P_{\text{end}}\) and \(P_{\text{str}}\) as functions of \(A,N,F_a,F_c,S,I\), to be used for evaluation and optimization in later sections.
+	
+	\begin{thebibliography}{9}\small
+		\bibitem{Banister1975} E.\,W. Banister, T.\,W. Calvert, et al., \emph{A systems model of training for athletic performance}, Can.\ J.\ Appl.\ Sport Sci., 1975.
+		\bibitem{Busso2003} T. Busso, \emph{Modeling adaptations to training}, Sports Med., 2003.
+		\bibitem{Mujika2003} I. Mujika \& S. Padilla, \emph{Scientific bases for precompetition tapering strategies}, Med. Sci. Sports Exerc., 2003.
+		\bibitem{Hickson1980} R. Hickson, \emph{Interference of strength development by simultaneously training for strength and endurance}, Eur. J. Appl. Physiol., 1980.
+		\bibitem{Fullagar2015} H. Fullagar et al., \emph{Sleep and athletic performance}, Sports Med., 2015.
+		\bibitem{Buchheit2014} M. Buchheit, \emph{Monitoring training status with HR measures}, Sports Med., 2014.
+		\bibitem{Gabbett2016} T. Gabbett, \emph{The training--injury prevention paradox: load, risk and performance}, Br. J. Sports Med., 2016.
+		\bibitem{Skiba2012} P. Skiba et al., \emph{Modeling the expenditure and reconstitution of work capacity above critical power}, Med. Sci. Sports Exerc., 2012.
+	\end{thebibliography}
+	
+	
+	
+	
+\end{document}

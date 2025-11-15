@@ -1,0 +1,27 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {paragraph}{Problem framing.}{2}{section*.2}%
+\contentsline {paragraph}{Design philosophy and precedent.}{2}{section*.3}%
+\contentsline {section}{\numberline {2}Brief overview of our dynamic model}{2}{section.2}%
+\contentsline {paragraph}{Top row — Trainable capacities.}{3}{section*.7}%
+\contentsline {paragraph}{Middle row — Fatigue (two time scales).}{3}{section*.8}%
+\contentsline {paragraph}{Bottom row — Sleep and tissue risk.}{3}{section*.9}%
+\contentsline {paragraph}{R1 — Early‑morning HIIT (7–9 AM), no nap.}{4}{section*.13}%
+\contentsline {paragraph}{R2 — Evening moderate/high intensity (7–9 PM).}{4}{section*.14}%
+\contentsline {paragraph}{R3 — Split session (light AM endurance + PM strength).}{4}{section*.15}%
+\contentsline {paragraph}{R4 — Alternating days (hard/easy microcycle).}{4}{section*.16}%
+\contentsline {paragraph}{R5 — Midday training (1–3 PM).}{4}{section*.17}%
+\contentsline {paragraph}{R6 — Taper into event week (volume down, intensity maintained).}{4}{section*.18}%
+\contentsline {paragraph}{R7 — Sleep‑extension and nap policy.}{5}{section*.19}%
+\contentsline {paragraph}{R8 — High‑volume polarized vs.\ pyramidal endurance blocks.}{5}{section*.20}%
+\contentsline {section}{\numberline {3}Assumptions}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Global modeling assumptions}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Regime and input assumptions}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}State--specific assumptions (to guide the ODE forms later)}{6}{subsection.3.3}%
+\contentsline {paragraph}{Aerobic adaptation \(A(t)\).}{6}{section*.21}%
+\contentsline {paragraph}{Neuromuscular adaptation \(N(t)\).}{6}{section*.22}%
+\contentsline {paragraph}{Acute fatigue \(F_a(t)\).}{6}{section*.23}%
+\contentsline {paragraph}{Chronic fatigue \(F_c(t)\).}{6}{section*.24}%
+\contentsline {paragraph}{Sleep debt / quality \(S(t)\).}{6}{section*.25}%
+\contentsline {paragraph}{Injury micro--damage \(I(t)\).}{6}{section*.26}%
+\contentsline {paragraph}{Derived outputs (for later use).}{6}{section*.27}%
