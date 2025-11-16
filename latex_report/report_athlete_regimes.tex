@@ -25,6 +25,10 @@
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc, matrix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usepackage{pgfplotstable}
 
 
 % math
@@ -44,7 +48,7 @@
 
 % better document formatting
 \usepackage{fancyhdr}
-\usepackage[a4paper, right=1in, left=1in, bottom=1.2in, top=1.2in, centering]{geometry}
+\usepackage[a4paper, right=1.2cm, left=1.2cm, bottom=2cm, top=2cm, centering]{geometry}
 \usepackage{fullpage}
 
 \usepackage{datetime2}
@@ -60,7 +64,7 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,citecolor=blue,urlcolor =black,linkbordercolor={1 0 0}}
 
-\usepackage{booktabs,array,longtable}
+\usepackage{booktabs,siunitx, array,longtable}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,6 +209,9 @@
 \setlength\marginparwidth{2.2in}
 \setlength\marginparsep{1mm}
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Styles and colors
@@ -304,7 +311,7 @@
 	
 	\subsection*{Coupling map (how pieces talk)}
 	The directed arrows in Figure~\ref{fig:overview-wiring} implement the following sign‑rules and qualitative nonlinearities:
-	\begin{enumerate}[label=\textbf{C\arabic*}. ,leftmargin=1.75em]
+	\begin{enumerate}
 		\item \textbf{Training stimulates capacity} (\textcolor{ForestGreen}{+}): $u_E,u_H \!\to\! A$; $u_S,u_H \!\to\! N$ with saturating gains and \emph{diminishing returns}. High $u_E$ mildly interferes with $N$ (concurrent‑training effect) \cite{Hickson1980}.
 		\item \textbf{Training creates load} (\textcolor{ForestGreen}{+}): all $u_\cdot \!\to\! F_a$ and, via accumulation, $F_a\!\to\!F_c$.
 		\item \textbf{Load creates micro‑damage} (\textcolor{ForestGreen}{+}): $u_\cdot$, $F_a$, and $F_c$ raise $I$ (mechanical + metabolic + poor‑mechanics channels).
@@ -320,35 +327,35 @@
 	\subsection*{Regimes as inputs (how we encode the schedules)}
 	We represent regimes by specifying the shapes and timing of the five input streams. Below are canonical examples we will test, using the exact left‑column elements of Figure~\ref{fig:overview-wiring}.
 	
-	\paragraph{R1 — Early‑morning HIIT (7–9 AM), no nap.}
+	\paragraph{1. Early‑morning HIIT (7–9 AM), no nap.}
 	\emph{Encoding:} A short $u_H$ pulse near wake time; low $B(t)$; $s(t)$ is one nightly block.
 	\emph{Expected signature:} Strong $N$ and $A$ stimulus; modest $F_a$ spike; minimal impact on that night’s sleep; next‑day $P$ depends on preceding night’s $S$.
 	
-	\paragraph{R2 — Evening moderate/high intensity (7–9 PM).}
+	\paragraph{2. Evening moderate/high intensity (7–9 PM).}
 	\emph{Encoding:} $u_E$ or $u_H$ pulse ending near lights-out $\Rightarrow$ large $B(t)$; standard $s(t)$.  
 	\emph{Expected signature:} Reduced sleep‑efficiency that night (slower decay of $S,F_a,F_c,I$); next‑day $P$ depressed; cumulative late‑evening sessions elevate chronic load.
 	
-	\paragraph{R3 — Split session (light AM endurance + PM strength).}
+	\paragraph{3. Split session (light AM endurance + PM strength).}
 	\emph{Encoding:} Small morning $u_E$ pulse; larger afternoon/evening $u_S$ pulse raising $B(t)$.  
 	\emph{Expected signature:} Good $N$ gains with some interference from $u_E$; higher $I$ and $S$ on PM‑strength days; performance trade‑off between power gains and sleep.
 	
-	\paragraph{R4 — Alternating days (hard/easy microcycle).}
+	\paragraph{4. Alternating days (hard/easy microcycle).}
 	\emph{Encoding:} Hard day: large $u_\cdot$ pulses; Easy day: minimal $u_\cdot$, $s(t)$ may include a nap; $B(t)$ small on easy days.  
 	\emph{Expected signature:} $F_a$ rises on hard days then decays; $F_c$ stabilizes or falls; $I$ accumulates more slowly; $P$ shows saw‑tooth with higher weekly average.
 	
-	\paragraph{R5 — Midday training (1–3 PM).}
+	\paragraph{5. Midday training (1–3 PM).}
 	\emph{Encoding:} $u_E$ or mixed session far from bedtime $\Rightarrow$ small $B(t)$.  
 	\emph{Expected signature:} Balanced load–recovery; relatively low $S$; favorable steady‑state $P$ with low $I$ accrual.
 	
-	\paragraph{R6 — Taper into event week (volume down, intensity maintained).}
+	\paragraph{6. Taper into event week (volume down, intensity maintained).}
 	\emph{Encoding:} Multiply $u_E,u_S$ volumes by a decaying factor; maintain short $u_H$ stimuli; enforce early‑day sessions to keep $B(t)$ small.  
 	\emph{Expected signature:} $F_a\downarrow$, then $F_c\downarrow$; $S$ improves; $A,N$ maintained; $I$ decays; peak in $P$ near event \cite{Mujika2003}.
 	
-	\paragraph{R7 — Sleep‑extension and nap policy.}
+	\paragraph{7. Sleep‑extension and nap policy.}
 	\emph{Encoding:} Increase nightly $s(t)$ duration and add a short post‑lunch nap block; enforce low‑$B(t)$ by moving $u_\cdot$ earlier.  
 	\emph{Expected signature:} Faster clearance of $F_a,F_c,I$; sustained reduction in $S$; higher readiness envelope for the same weekly load \cite{Fullagar2015}.
 	
-	\paragraph{R8 — High‑volume polarized vs.\ pyramidal endurance blocks.}
+	\paragraph{8. High‑volume polarized vs.\ pyramidal endurance blocks.}
 	\emph{Encoding:} Shift weight among $u_E$ (easy volume) and $u_H$ (interval density) with identical weekly “TRIMP”.  
 	\emph{Expected signature:} Comparable $A$ gains but different $F_a,S$ trajectories; polarized blocks target higher $P$ with lower $I$ at the same load.
 	
@@ -522,8 +529,8 @@
 		\label{eq:N-expanded}
 	\end{align}
 	
-	\emph{Term‑by‑term rationale.}
-	\begin{enumerate}[label=\textbf{C.\arabic*},leftmargin=1.6em]
+	\emph{Design Choices and Evidence.}
+	\begin{enumerate}
 		\item \emph{Stimulus terms.} Endurance \(u_E\) and HIIT \(u_H\) are the primary drivers of central/aerobic adaptation \(A\); strength \(u_S\) (and, secondarily, HIIT) drive neuromuscular adaptation \(N\). The linear dependence in the low‑to‑moderate range reflects the impulse‑response tradition \cite{Banister1975,Busso2003}; higher‑order effects are carried by the saturation \((1-A/K_A)\) and \((1-N/K_N)\).
 		\item \emph{Diminishing returns.} The logistic–like factor ensures that identical stimuli produce smaller increments when close to capacity—empirically consistent with taper/peaking observations \cite{Mujika2003}.
 		\item \emph{Recovery gate \(G_\mathrm{rec}(S,F_c)=1/(1+c_S S+c_c F_c)\).} Poor sleep state \(S\) and unresolved central fatigue \(F_c\) throttle supercompensation; the multiplicative gate makes this explicit and keeps units tidy (dimensionless factor \( \in (0,1]\)) \cite{Busso2003,Fullagar2015}.
@@ -532,10 +539,10 @@
 		\item \emph{Interference gate \(G_\mathrm{int}(u_E)=1/(1+\mu_E u_E)\).} The classic endurance‑strength interference is represented as a simple monotone damping of strength gains when concurrent endurance load is high; \(\mu_E\) sets how much endurance “soaks up” resources otherwise available to \(N\) \cite{Hickson1980}. 
 	\end{enumerate}
 	
-	\emph{Sanity checks and limits.}
+	\emph{Limits.}
 	(i) If \(u_E=u_H=0\), \(A\) detains to baseline with time constant \(\tau_A\); similarly for \(N\) if \(u_S=u_H=0\).  
 	(ii) If sleep/recovery are excellent (\(S=F_c=0\)), the gate is \(1\) and the model reduces to a classic stimulus–response with saturation.  
-	(iii) If \(I\) is large, both capacities stall—this is intentional and encourages recovery regimes in Sec.~6.
+	(iii) If \(I\) is large, both capacities stall; this is intentional and encourages recovery regimes in Sec.~6.
 	
 	\paragraph{Middle row: fatigue on two time scales.}
 	\begin{align}
@@ -558,7 +565,7 @@
 		\item \emph{Context stress \(x(t)\).} Travel, heat, exams and logistics add central load and degrade sleep \cite{Buchheit2014}; here \(x(t)\) feeds \(F_c\) via \(\xi_c\), and will also enter \(S\) below.
 	\end{itemize}
 	
-	\emph{Sanity checks and limits.}
+	\emph{Limits.}
 	(i) If no sleep is taken (\(s=0\)) both fatigues still clear slowly (via \(1/\tau\)), preventing blow‑up.  
 	(ii) If an athlete sleeps well and early (so \(s=1\) and \(B\approx0\)), night clearance is maximal \(\approx(1/\tau+\rho)\,F\).  
 	(iii) If there is no training nor stress, \(F_a,F_c\to0\) exponentially.
@@ -585,7 +592,7 @@
 		\item \emph{Nutrition as clearance.} Modeling \(n(t)\) as an additive clearance coefficient \(\psi_n n(t)\) keeps dimensions clean and matches the idea that adequate fueling speeds remodeling rather than instantaneously erasing damage.
 	\end{itemize}
 	
-	\emph{Sanity checks and limits.}
+	\emph{Limits.}
 	(i) If an athlete extends sleep opportunity (larger \(s\)) and trains earlier (smaller \(B\)), the term \((\mu_s s q(B))S\) pulls \(S\) down faster.  
 	(ii) If nutrition is chronically low (\(n\approx0\)), \(I\) clears slowly, raising injury risk for the same external load.
 	
@@ -597,21 +604,21 @@
 	\end{equation}
 	where weights encode the event profile (e.g., \(w_{\mathrm{end}}\gg w_{\mathrm{str}}\) for a marathon). The sign structure matches Fig.~\ref{fig:overview-wiring}. In Sec.~5 we will calibrate \(\lambda_\cdot,w_\cdot\) so that \(P(t)\) predicts best‑effort tests; in Sec.~6 we will use time‑averaged \(P\) and its peak timing to rank regimes and to design tapers \cite{Mujika2003}.
 	
-	\subsubsection*{Why these forms? (expanded justification)}
-	\paragraph{(J1) Positivity and boundedness without ad hoc clipping.}
+	\subsubsection*{Why these forms?}
+	\paragraph{Positivity and boundedness without ad hoc clipping.}
 	All sinks in \eqref{eq:Fa-expanded}–\eqref{eq:I-expanded} are proportional to the current state, so the nonnegative orthant is forward‑invariant: if a state hits zero, it cannot cross negative. For capacities, the saturations \((1-A/K_A),(1-N/K_N)\) and linear detraining keep \(A\in[0,K_A]\), \(N\in[0,K_N]\) if initialized inside the interval—no artificial “max/min” operators are needed.
 	
-	\paragraph{(J2) Clear separation between \emph{stimulus}, \emph{modulation}, and \emph{dissipation}.}
+	\paragraph{Clear separation between \emph{stimulus}, \emph{modulation}, and \emph{dissipation}.}
 	Each equation decomposes as: \(\text{gain from inputs}\times\text{gates/saturations}\;-\;\text{(baseline + sleep + nutrition) clearance}\).
 	This mirrors the impulse–response view \cite{Banister1975,Busso2003}, isolates where sleep acts (always in the clearance terms through \(q(B)\)), and makes the late–session penalty precise.
 	
-	\paragraph{(J3) Bedtime proximity as a short memory instead of a full circadian submodel.}
+	\paragraph{Bedtime proximity as a short memory instead of a full circadian submodel.}
 	The kernel \(B(t)=\int (\beta_E u_E+\beta_H u_H+\beta_S u_S)\,K_b(t-\tau)\,d\tau\) (Sec.~4.1) captures “how late was the hard work?” while keeping the model small. The concavity \(q(B)=q_0/(1+\eta B)\) ensures diminishing sleep impairment as \(B\) increases (a large late session is worse than two modest sessions).
 	
-	\paragraph{(J4) Interference via a \emph{gate} rather than via cross‑terms in \(\dot N\).}
+	\paragraph{Interference via a \emph{gate} rather than via cross‑terms in \(\dot N\).}
 	We use \(G_\mathrm{int}(u_E)=1/(1+\mu_E u_E)\) to encode the endurance–strength interference \cite{Hickson1980}. This makes the trade‑off explicit, dimensionless, and easy to calibrate from blocks that vary the amount of concurrent endurance.
 	
-	\paragraph{(J5) Minimal parameter collinearity.}
+	\paragraph{Minimal parameter collinearity.}
 	Stimulus gains \(k_A,k_N\) are separated from modality weights \(\alpha_{\cdot}\), the recovery gate uses distinct couplings \(c_S,c_c\), and sleep efficiency \(q(B)\) has its own baseline/penalty \((q_0,\eta)\). This reduces confounding in calibration (Sec.~5).
 	
 	\subsubsection*{Dimensional consistency and quick reference}
@@ -633,17 +640,7 @@
 		\end{tabular}
 	\end{center}
 	\label{tab:dimensions}
-	
-	\subsubsection*{Limiting scenarios (for intuition and testing)}
-	\begin{itemize}[leftmargin=1.6em]
-		\item \textbf{No training week} ($u_\cdot\!=\!0$), \textbf{early sleep} ($B\!=\!0$): $F_a,F_c,S,I\!\downarrow$; $A,N$ detrain slowly. Useful for validating baseline time constants \(\tau_\cdot\).
-		\item \textbf{Late‑evening HIIT block}: $u_H$ near bedtime $\Rightarrow B\!\uparrow$; \(\,q(B)\!\downarrow\) reduces nightly clearance in \eqref{eq:Fa-expanded}–\eqref{eq:I-expanded}, raising next‑day \(F_a,F_c,S,I\) and depressing capacity gains through the recovery gate in \eqref{eq:A-expanded}–\eqref{eq:N-expanded} \cite{Fullagar2015}.
-		\item \textbf{Midday polarized block}: high \(u_E\) and small \(u_H\) at midday keep \(B\) small; \(A\!\uparrow\) with limited interference on \(N\), predicting higher average \(P\).
-	\end{itemize}
-	
-	\subsubsection*{Identifiability notes for calibration (pointer to Sec.~5)}
-	Estimate \(\tau_{fa},\tau_{fc},\tau_S\) from decay after rest days; \(\eta\) by contrasting nights after late vs.\ midday sessions; \(\mu_E\) from weeks that vary concurrent endurance; \(\chi_a,\chi_c\) from how \(I\) escalates under monotony (elevated \(F_c\)) \cite{Buchheit2014}. We keep gates simple (rational functions) precisely to make this calibration feasible.
-		
+				
 	\subsection{Well‑posedness and qualitative properties}
 	The right–hand side of our ODE system is locally Lipschitz in the states for bounded inputs, so
 	solutions exist and are unique. For \(A,N\), the saturations and linear decay give \(0\le A\le K_A\), \(0\le N\le K_N\) when initialized in range. For \(F_a,F_c,S,I\), the linear dissipation terms imply the nonnegative orthant is
@@ -719,7 +716,7 @@
 	
 	\subsection{Variables and parameters (grouped inventory)}
 	\label{sec:inventory}
-	To match the style of the reference report’s model summary, Table~\ref{tab:inventory} lists the six equations and all symbols they introduce or require. We include the input/helper relations and the readiness output for completeness. Units follow Section~\ref{sec:model-development}.
+	Table~\ref{tab:inventory} lists the six equations and all symbols they introduce or require. We include the input/helper relations and the readiness output for completeness. Units follow Section~\ref{sec:model-development}.
 	\begin{center}
 		\renewcommand{\arraystretch}{1.18}
 		\setlength{\tabcolsep}{6pt}
@@ -821,340 +818,692 @@
 	**helpers** $B,q,G_\mathrm{rec},G_\mathrm{int}$ are computed from them and from the states; and the six ODEs
 	\eqref{eq:compactA}–\eqref{eq:compactI} evolve the **states**. The right‑hand side is locally Lipschitz for bounded inputs and keeps states nonnegative by construction.
 	
-	\section{Parameter estimation and prior specification}
-	\label{sec:estimation}
+	\section{Deterministic parameter selection and synthetic-athlete regimes}
+	\label{sec:deterministic-params}
 	
-	In this section we specify \emph{priors} for every parameter that appears in the six ODEs
-	(\S\ref{sec:six-odes}) and in the auxiliary relations (bedtime kernel, gates, sleep efficiency, readiness).
-	Our intent is twofold: (i) make explicit the physiological knowledge and modeling compromises behind
-	each numerical choice; (ii) provide weakly‑to‑moderately informative priors that regularize calibration
-	without constraining legitimate athlete‑to‑athlete variation.
+	\paragraph{Deterministic calibration.}
+	We now fix \emph{deterministic point estimates} for all parameters. Each choice is anchored to established evidence: the impulse–response canon and its two‑component refinements guide month‑scale adaptation gains and detraining time constants for $A$ and $N$ \cite{Banister1975,Busso2003}; taper practice constrains plausible magnitudes and time courses of performance changes and fatigue dissipation \cite{Mujika2003}; the endurance–strength interference literature motivates a monotone gate $G_{\mathrm{int}}(u_E)$ with sensitivity $\mu_E$ \cite{Hickson1980}; sleep and recovery studies support the nightly clearance multiplier $s\,q(B)$ and the bedtime‑proximity penalty $q(B)=q_0/(1+\eta\,B)$ \cite{Fullagar2015,Buchheit2014}; and load–injury work justifies a damage state $I$ with week‑scale repair and amplification by fatigue \cite{Gabbett2016}. We retain the sign structure, gates, and day‑level time units introduced in Sections~\ref{sec:model-development}–\ref{sec:final-model}, so that with daily inputs $(u_E,u_H,u_S,s,n,x)$ the model deterministically evolves $(A,N,F_a,F_c,S,I)$ and the readiness output $P(t)$ without additional statistical machinery.
 	
-	Throughout this section we omit the explicit time argument (e.g., we write $A$ rather than $A(t)$) for
-	readability; all states and inputs are functions of time unless stated otherwise.
 	
-	\subsection{Data sources and normalization}
-	\label{sec:data-normalization}
-	We calibrate against standard practitioner data streams:
-	(i) session composition $\{u_E,u_H,u_S\}$ from training logs (zone minutes/TRIMP, interval prescriptions, tonnage or contact counts),
-	(ii) sleep opportunity $s$ and bedtime (from diaries/wearables) to compute $B$,
-	(iii) nutrition $n$ (binary or graded availability; e.g., carbohydrate/protein targeting),
-	(iv) context stress $x$ (travel, heat, self‑report),
-	(v) performance proxies for $A,N$ (best‑effort curves / critical‑power metrics \cite{Skiba2012}, CMJ/1RM or sprint splits),
-	(vi) recovery markers for $F_a,F_c,S$ (sRPE/monotony, HRV and resting HR trends \cite{Buchheit2014}, actigraphy‑derived sleep efficiency),
-	(vii) tissue status for $I$ (soreness, acute:chronic load patterns \cite{Gabbett2016}).
+	\paragraph{Normalization and units.}
+	Daily training streams are scaled so that a “typical hard day” satisfies
+	\(\int (u_E+u_H+u_S)\,dt \approx 1\). Capacities \(A,N\in[0,1]\) (dimensionless), fatigues \(F_a,F_c\), sleep
+	debt \(S\) and micro‑damage \(I\) are nonnegative dimensionless states. Time constants are in days; the
+	bedtime kernel acts on hours then contributes to daily \(q(B)\) as in \S\ref{sec:inputs-helpers}.
 	
-	To reduce unit confounds we standardize the daily training inputs so that a “typical hard day” produces
-	$\int(u_E+u_H+u_S)\,dt\approx 1$. Priors below are expressed on that scale; when a practitioner chooses
-	a different scale, the gains adapt during calibration.
+	\subsection{Nominal (all‑round) athlete: fixed parameter values}
+	\label{sec:nominal-values}
 	
-	\subsection{Literature anchors used for priors}
-	We align with the training‑response canon (fast/slow components, diminishing returns, first‑order detraining) \cite{Banister1975,Busso2003},
-	the taper literature \cite{Mujika2003}, the endurance–strength interference evidence \cite{Hickson1980},
-	sleep–performance links (sleep quantity \emph{and} efficiency) \cite{Fullagar2015,Buchheit2014},
-	and load–injury associations \cite{Gabbett2016}. We purposefully encode these ideas as simple,
-	smooth gates (rational/Hill‑like) to keep the system identifiable (\S\ref{sec:identifiability-plan}).
+	Tables~\ref{tab:deterministic-core} and \ref{tab:deterministic-helpers} list all parameters used by the six ODEs and
+	helpers. Values were chosen to reproduce month‑scale adaptation, day‑to‑week fatigue, sleep effects on
+	clearance, plausible injury‑hazard dynamics, and sensible readiness aggregation. Each block is followed by
+	a brief rationale. (All symbols match Section~\ref{sec:final-model}.)
 	
-	\subsection{Priors for the six ODEs}
-	\label{sec:priors-odes}
-	We denote $\mathrm{LN}(\mu,\sigma^2)$ a log‑normal with $\log$‑space mean $\mu$ and s.d.\ $\sigma$;
-	$\mathrm{Beta}(a,b)$ on $[0,1]$; $\mathrm{Dir}(\boldsymbol{\alpha})$ a Dirichlet; $\mathcal{N}^+(m,s^2)$ a half‑normal.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.18}
+		\setlength{\tabcolsep}{6pt}
+		\begin{longtable}{@{}l l l l@{}}
+			\caption{Deterministic values for the six ODEs (Nominal athlete). Units: day$^{-1}$ unless noted.}
+			\label{tab:deterministic-core}\\
+			\toprule
+			\textbf{Equation} & \textbf{Parameter} & \textbf{Value} & \textbf{Meaning} \\
+			\midrule
+			\endfirsthead
+			\toprule
+			\textbf{Equation} & \textbf{Parameter} & \textbf{Value} & \textbf{Meaning} \\
+			\midrule
+			\endhead
+			\midrule
+			\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+			\bottomrule
+			\endfoot
+			\bottomrule
+			\endlastfoot
+			
+			\textbf{$\dot A$ (capacity)} 
+			& $k_A$ & 0.035 & stimulus gain \\
+			& $\alpha_E,\alpha_H$ & 0.60,\ 0.40 & Endurance/HIIT weights to $A$ \\
+			& $K_A$ & 1.00 & asymptote (normalized) \\
+			& $\tau_A$ & 50\,(d) & detraining time constant \\
+			& $\theta_{AI}$ & 0.030 & injury penalty on realized gains \\
+			& $c_S,c_c$ & 0.50,\ 0.40 & recovery‑gate couplings in $G_{\mathrm{rec}}$ \\[2pt]
+			
+			\textbf{$\dot N$ (capacity)} 
+			& $k_N$ & 0.040 & stimulus gain \\
+			& $\alpha_S,\alpha_{HN}$ & 0.70,\ 0.30 & Strength/HIIT weights to $N$ \\
+			& $K_N$ & 1.00 & asymptote (normalized) \\
+			& $\tau_N$ & 35\,(d) & detraining time constant \\
+			& $\theta_{NI}$ & 0.030 & injury penalty on realized gains \\
+			& $\mu_E$ & 0.30 & interference gate $G_{\mathrm{int}}=1/(1+\mu_E u_E)$ \\[2pt]
+			
+			\textbf{$\dot F_a$ (acute fatigue)} 
+			& $\gamma_E,\gamma_H,\gamma_S$ & 0.55,\ 0.90,\ 0.45 & load $\to F_a$ gains \\
+			& $\tau_{fa}$ & 1.0\,(d) & baseline clearance \\
+			& $\rho_a$ & 0.50 & sleep‑accelerated clearance (multiplies $s\,q(B)$) \\[2pt]
+			
+			\textbf{$\dot F_c$ (chronic fatigue)} 
+			& $\varepsilon$ & 0.18 & spillover $F_a \to F_c$ \\
+			& $\xi_c$ & 0.20 & context stress $\to F_c$ gain \\
+			& $\tau_{fc}$ & 10\,(d) & baseline clearance \\
+			& $\rho_c$ & 0.40 & sleep‑accelerated clearance \\[2pt]
+			
+			\textbf{$\dot S$ (sleep debt/quality)} 
+			& $\lambda_w$ & 0.30 & wake accrual \\
+			& $\lambda_T$ & 0.20 & training‑day accrual scaling \\
+			& $\xi_s$ & 0.15 & stress $\to S$ gain \\
+			& $\tau_S$ & 6\,(d) & baseline paydown \\
+			& $\mu_s$ & 0.30 & sleep‑accelerated paydown \\[2pt]
+			
+			\textbf{$\dot I$ (micro‑damage)} 
+			& $\psi_0$ & 0.40 & base damage gain \\
+			& $\kappa_E,\kappa_H,\kappa_S$ & 0.30,\ 0.35,\ 0.35 & modality weights in load $\to I$ \\
+			& $\chi_a,\chi_c$ & 0.25,\ 0.25 & fatigue amplification of damage \\
+			& $\tau_I$ & 14\,(d) & baseline repair \\
+			& $\psi_s$ & 0.25 & sleep‑accelerated repair \\
+			& $\psi_n$ & 0.20 & nutrition‑accelerated repair \\
+		\end{longtable}
+	\end{center}
 	
-	\paragraph{Top row — capacities $A,N$ (\eqref{eq:S1}–\eqref{eq:S2}).}
-	\begin{itemize}[leftmargin=1.5em]
-		\item $k_A,k_N$ (stimulus gains, day$^{-1}$ per load): $\mathrm{LN}(\log 0.03,\,0.5^2)$.
-		\emph{Rationale:} week‑to‑month scale improvements of 5–20\% under sustained load are typical in
-		Banister‑style models \cite{Banister1975,Busso2003}.
-		\item $(\alpha_E,\alpha_H)$ and $(\alpha_S,\alpha_{HN})$ (modality weights): Dirichlet priors on each pair, 
-		$\mathrm{Dir}(2,2)$ (uninformative symmetric) with the \emph{soft} expectation that $u_E,u_H$ dominate $A$ and
-		$u_S,u_H$ dominate $N$ (\cite{Hickson1980} supports HIIT aiding both).
-		\item $K_A,K_N$ (asymptotes): fix to $1$ by normalization; if left free, use $\mathrm{LN}(\log 1,0.1^2)$.
-		\item $\tau_A,\tau_N$ (detraining time constants): $\mathrm{LN}(\log 50,0.4^2)$ and $\mathrm{LN}(\log 35,0.4^2)$ days.
-		\emph{Rationale:} multi‑week decay after cessation \cite{Busso2003,Mujika2003}.
-		\item $\theta_{AI},\theta_{NI}$ (injury penalty on realized gains): $\mathcal{N}^+(0.05,\,0.05^2)$ day$^{-1}$.
-		Small, but allows stalls in adaptation when $I$ is high \cite{Gabbett2016}.
-		\item $G_\mathrm{int}(u_E)=1/(1+\mu_E u_E)$ (interference): $\mu_E\sim\mathrm{LN}(\log 0.3,\,0.5^2)$.
-		\emph{Rationale:} concurrent endurance can depress strength gains by 10–40\% at high endurance
-		loads \cite{Hickson1980}.
-		\item $G_\mathrm{rec}(S,F_c)=1/(1+c_S S+c_c F_c)$: $c_S,c_c\sim\mathrm{LN}(\log 0.5,\,0.6^2)$ (dimensionless).
-		\emph{Rationale:} poor sleep and central fatigue throttle supercompensation \cite{Busso2003,Fullagar2015}.
-	\end{itemize}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.18}
+		\setlength{\tabcolsep}{6pt}
+		\begin{longtable}{@{}l l l l@{}}
+			\caption{Helpers, kernel, readiness weights, and initial conditions (Nominal athlete).}
+			\label{tab:deterministic-helpers}\\
+			\toprule
+			\textbf{Block} & \textbf{Parameter} & \textbf{Value} & \textbf{Meaning / units} \\
+			\midrule
+			\endfirsthead
+			\toprule
+			\textbf{Block} & \textbf{Parameter} & \textbf{Value} & \textbf{Meaning / units} \\
+			\midrule
+			\endhead
+			\midrule
+			\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+			\bottomrule
+			\endfoot
+			\bottomrule
+			\endlastfoot
+			\textbf{Sleep efficiency} & $q_0$ & 0.88 & baseline sleep efficiency \\
+			& $\eta$ & 1.00 & bedtime penalty in $q(B)=q_0/(1+\eta B)$ \\[2pt]
+			\textbf{Bedtime kernel} & $\beta_E,\beta_H,\beta_S$ & 0.30,\ 0.40,\ 0.30 & modality weights \\
+			& $\sigma_b$ & 1.5\,h & exponential decay of kernel \\
+			& $h_b$ & 6\,h & horizon (final hours before lights‑out) \\[2pt]
+			\textbf{Readiness $P$} & $w_{\mathrm{end}},w_{\mathrm{str}}$ & 0.50,\ 0.50 & positive weights \\
+			& $\lambda_a,\lambda_c,\lambda_s,\lambda_i$ & 0.30,\ 0.50,\ 0.40,\ 0.60 & penalties on $F_a,F_c,S,I$ \\[2pt]
+			\textbf{Initial states} & $A_0,N_0$ & 0.65,\ 0.65 & preseason capacities (normalized) \\
+			& $F_{a0},F_{c0},S_0,I_0$ & 0.20,\ 0.20,\ 0.20,\ 0.15 & latent recovery/risk states \\
+		\end{longtable}
+	\end{center}
 	
-	\paragraph{Middle row — fatigue $F_a,F_c$ (\eqref{eq:S3}–\eqref{eq:S4}).}
-	\begin{itemize}[leftmargin=1.5em]
-		\item $(\gamma_E,\gamma_H,\gamma_S)$ (training $\to F_a$, day$^{-1}$ per load): independent $\mathrm{LN}(\log m,0.35^2)$ with
-		means $m=(0.6,0.9,0.5)$, reflecting that HIIT generally spikes acute load most.
-		\item $\tau_{fa}$ (acute clearance): $\mathrm{LN}(\log 1.0,0.35^2)$ days (median 1 day; 95\% $\approx$ 0.5–2 days).
-		\item $\tau_{fc}$ (chronic clearance): $\mathrm{LN}(\log 10,0.5^2)$ days (95\% $\approx$ 4–25 days), consistent with
-		fast/slow components in training‑response models \cite{Busso2003}.
-		\item $\rho_a,\rho_c$ (sleep‑accelerated clearances): $\mathcal{N}^+(0.5,\,0.25^2)$ day$^{-1}$.
-		Sleep increases clearance rates; magnitude tempered by $q(B)$ \cite{Fullagar2015}.
-		\item $\varepsilon$ (spillover $F_a\!\to\!F_c$): $\mathrm{Beta}(2.5,12)$ (mean $\approx 0.17$ day$^{-1}$), capturing that only a fraction of unresolved fatigue becomes chronic \cite{Busso2003}.
-		\item $\xi_c$ (context stress $\to F_c$): $\mathcal{N}^+(0.2,0.15^2)$; $\xi_a$ (into $F_a$) $\mathcal{N}^+(0.05,0.05^2)$, often near zero.
-		Travel/heat/psych load primarily burdens the slow component \cite{Buchheit2014}.
-	\end{itemize}
+	Month–scale adaptation with first–order detraining for the two capacities is standard in the training–response canon, so we set time constants to reflect typical endurance (\(\tau_A\!\approx\!50\,\mathrm{d}\)) and neuromuscular (\(\tau_N\!\approx\!35\,\mathrm{d}\)) decay and choose stimulus gains that yield realistic multi‑week improvements under sustained load \cite{Banister1975,Busso2003}. These magnitudes are also consistent with taper/peaking evidence in which performance rebounds over 1–3 weeks as training load is reduced \cite{Mujika2003}. The endurance–strength \emph{interference} effect is captured with a damping gate on \(N\) that depends on concurrent endurance work; taking \(\mu_E\!=\!0.30\) produces a \(\sim 20\text{–}35\%\) reduction in realized strength gains when endurance volume is high, in line with classic concurrent‑training findings \cite{Hickson1980}. 
 	
-	\paragraph{Bottom row — sleep debt $S$ and micro‑damage $I$ (\eqref{eq:S5}–\eqref{eq:S6}).}
-	\begin{itemize}[leftmargin=1.5em]
-		\item $\lambda_w$ (wake accrual): $\mathrm{LN}(\log 0.3,0.4^2)$ day$^{-1}$; $\lambda_T$ (training‑day accrual gain): $\mathrm{LN}(\log 0.2,0.5^2)$.
-		\emph{Rationale:} debt rises during wakefulness; heavy training increases need \cite{Fullagar2015}.
-		\item $\tau_S$ (baseline paydown): $\mathrm{LN}(\log 6,0.4^2)$ days; $\mu_s$ (sleep‑accelerated paydown gain): $\mathcal{N}^+(0.3,0.15^2)$.
-		\item $\psi_0$ (base damage gain): $\mathrm{LN}(\log 0.4,0.5^2)$ day$^{-1}$; modality weights
-		$(\kappa_E,\kappa_H,\kappa_S)\sim\mathrm{Dir}(2,3,3)$ to reflect higher damage from eccentric/HIIT loads.
-		\item $(\chi_a,\chi_c)$ (fatigue amplification of damage): independent $\mathrm{Beta}(2,6)$ (mean $\approx 0.25$), encoding poorer mechanics/remodeling with fatigue \cite{Gabbett2016}.
-		\item $\tau_I$ (repair time): $\mathrm{LN}(\log 14,0.5^2)$ days; $\psi_s$ (sleep‑accelerated repair): $\mathcal{N}^+(0.25,0.15^2)$;
-		$\psi_n$ (nutrition‑accelerated repair): $\mathcal{N}^+(0.2,0.1^2)$.
-	\end{itemize}
+	Fatigue operates on two time scales: acute clears in roughly a day (\(\tau_{fa}\!\approx\!1\,\mathrm{d}\)), chronic in roughly a week to fortnight (\(\tau_{fc}\!\approx\!10\,\mathrm{d}\)), and both are accelerated during sleep via coefficients \(\rho_a,\rho_c\). Night‑to‑night modulation uses a sleep‑efficiency factor \(q(B)=q_0/(1+\eta B)\); with \(\sigma_b\!=\!1.5\,\mathrm{h}\) and \(h_b\!=\!6\,\mathrm{h}\) for the bedtime kernel and \(\eta\!=\!1\), a late, intense evening session lowers efficiency by \(\mathcal{O}(10\text{–}25\%)\), which matches applied sleep literature on training close to lights‑out \cite{Fullagar2015,Buchheit2014}. 
 	
-	\subsection{Priors for auxiliary relations (left/right columns)}
-	\label{sec:priors-aux}
-	\paragraph{Bedtime kernel and sleep efficiency.}
-	We compute \(B=\int_0^{h_b}(\beta_E u_E+\beta_H u_H+\beta_S u_S)\,e^{-\Delta/\sigma_b}\,d\Delta\).
-	\begin{itemize}[leftmargin=1.5em]
-		\item Horizon $h_b$: $\mathrm{LN}(\log 6\ \mathrm{h},\,0.25^2)$ (typical “final six hours” window matters most for sleep),
-		\item Decay $\sigma_b$: $\mathrm{LN}(\log 1.5\ \mathrm{h},\,0.3^2)$,
-		\item Modality weights $(\beta_E,\beta_H,\beta_S)\sim\mathrm{Dir}(1.5,2.5,2.0)$ (late‐day HIIT/strength penalized more \cite{Fullagar2015}).
-		\item Sleep efficiency \(q(B)=q_0/(1+\eta B)\): $q_0\sim\mathrm{Beta}(18,3)$ (mean~$\approx 0.86$), $\eta\sim\mathrm{LN}(\log 1.0,0.6^2)$ so a large late session (kernel mass $\approx1$) can lower efficiency by 10–30\% \cite{Fullagar2015}.
-	\end{itemize}
+	Damage/repair dynamics follow load–injury associations: base damage gain and modality weights make high‑impact or high‑intensity work more injurious; fatigue multipliers \(\chi_a,\chi_c\!\approx\!0.25\) encode poorer mechanics and slower remodeling under load; and week‑scale repair (\(\tau_I\!\approx\!14\,\mathrm{d}\)) is accelerated by sleep and adequate nutrition (\(\psi_s,\psi_n>0\)) \cite{Gabbett2016}. Finally, readiness weights treat \(A\) and \(N\) symmetrically in the Nominal profile, while penalties are heavier for chronic fatigue and micro‑damage (\(\lambda_c,\lambda_i>\lambda_a\)), reflecting their outsized impact on next‑day performance and availability noted in the applied literature \cite{Buchheit2014,Fullagar2015}.
 	
-	\paragraph{Readiness aggregation $P=w_{\rm end}A+w_{\rm str}N-\phi_aF_a-\phi_cF_c-\phi_sS-\phi_iI$.}
-	\begin{itemize}[leftmargin=1.5em]
-		\item Positive weights $(w_{\rm end},w_{\rm str})\sim\mathrm{Dir}(2,2)$ (sport‑specific).
-		\item Penalties $(\phi_a,\phi_c,\phi_s,\phi_i)\sim\mathcal{N}^+(0.5,0.3^2)$ with a soft prior ordering $\phi_i\ge\phi_c\ge\phi_a$ (tissue risk penalized most).
-	\end{itemize}
 	
-	\subsection{Initial conditions}
-	\label{sec:initials}
-	We place weak priors: $A_0,N_0\sim\mathrm{Beta}(4,2)$ (typical preseason $\approx 0.7$ of asymptote),
-	$F_{a0},F_{c0},S_0,I_0\sim\mathcal{N}^+(0.2,0.2^2)$. These can be sharpened using one week of baseline
-	data before simulations begin.
 	
-	\subsection{Identifiability and staged calibration plan}
-	\label{sec:identifiability-plan}
-	We adopt a two‑stage strategy (common in training‑response modeling \cite{Busso2003} and mirrored in the
-	reference report’s staged approach). :contentReference[oaicite:2]{index=2}
-	\begin{enumerate}[leftmargin=1.5em]
-		\item \textbf{Stage A: exogenous and clearance structure.} Fix input normalization; estimate sleep kernel
-		$(h_b,\sigma_b,\boldsymbol{\beta})$ from late‑vs‑midday sessions and their effect on actigraphy efficiency; fit
-		$\{q_0,\eta\}$ from the same nights. With those fixed, estimate \emph{clearance} parameters 
-		$\{\tau_{fa},\rho_a,\tau_{fc},\rho_c,\tau_S,\mu_s,\tau_I,\psi_s,\psi_n\}$ from recovery trajectories during low‑load days.
-		\item \textbf{Stage B: adaptation and couplings.} With clearances set, estimate stimulus gains
-		$\{k_A,k_N\}$ and modality weights $\{\alpha_\cdot\}$ from blocks emphasizing $u_E/u_H$ (for $A$) and $u_S/u_H$ (for $N$),
-		then $\mu_E$ (interference) by comparing strength‐focused blocks with/without concurrent endurance \cite{Hickson1980}.
-		Estimate load‑to‑fatigue gains $\{\gamma_\cdot\}$ and spillover $\varepsilon$ from day‑to‑week dynamics under varied microcycles.
-		Finally, fit readiness weights $(w_\cdot,\phi_\cdot)$ using best‑effort or competition outcomes as targets \cite{Mujika2003}.
-	\end{enumerate}
-	We recommend Bayesian calibration (e.g., NUTS) with the priors above and a simple measurement
-	model: observed proxies $y_A,y_N$ are noisy maps of $A,N$ (Gaussian noise on a logit transform),
-	$y_{F_a},y_{F_c}$ from sRPE/monotony, $y_S$ from sleep debt/efficiency, $y_I$ from soreness and
-	acute:chronic ratio features \cite{Gabbett2016}. This separates process noise from measurement noise,
-	improving identifiability.
+	\subsection{Synthetic athletes: three deterministic parameter regimes}
+	\label{sec:synthetic-athletes}
 	
-	\subsection{Prior summary tables}
-	\label{sec:prior-tables}
-	\renewcommand{\arraystretch}{1.15}
-	\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
-	\begin{longtable}{p{0.24\linewidth}p{0.46\linewidth}p{0.24\linewidth}}
-		\caption{Prior distributions for parameters (time dependence suppressed; units in days or day$^{-1}$ as indicated).}\\
-		\toprule
-		\textbf{Block / Parameter} & \textbf{Interpretation} & \textbf{Prior (95\% range)} \\
-		\midrule
-		\endfirsthead
-		\toprule
-		\textbf{Block / Parameter} & \textbf{Interpretation} & \textbf{Prior (95\% range)} \\
-		\midrule
-		\endhead
-		\midrule\multicolumn{3}{r}{\emph{Table continues}}\\\midrule
-		\endfoot
-		\bottomrule
-		\endlastfoot
-		\textbf{Capacities} $k_A,k_N$ & stimulus $\to$ adaptation gains (day$^{-1}$/load) & $\mathrm{LN}(\log 0.03,0.5^2)$ \\
-		$K_A,K_N$ & asymptotes (normalized) & fixed 1 (or $\mathrm{LN}(\log 1,0.1^2)$) \\
-		$\alpha_E,\alpha_H$; $\alpha_S,\alpha_{HN}$ & modality weights & $\mathrm{Dir}(2,2)$ (each pair) \\
-		$\tau_A,\tau_N$ & detraining time constants (d) & $\mathrm{LN}(\log 50,0.4^2)$; $\mathrm{LN}(\log 35,0.4^2)$ \\
-		$\theta_{AI},\theta_{NI}$ & injury penalties on gains & $\mathcal{N}^+(0.05,0.05^2)$ \\
-		$c_S,c_c$ & recovery‑gate couplings & $\mathrm{LN}(\log 0.5,0.6^2)$ \\
-		$\mu_E$ & interference gate sensitivity & $\mathrm{LN}(\log 0.3,0.5^2)$ \\
-		\midrule
-		\textbf{Fatigue} $\gamma_E,\gamma_H,\gamma_S$ & load $\to F_a$ gains (day$^{-1}$/load) & $\mathrm{LN}(\log[0.6,0.9,0.5],0.35^2)$ \\
-		$\tau_{fa},\tau_{fc}$ & clearances (d) & $\mathrm{LN}(\log 1,0.35^2)$; $\mathrm{LN}(\log 10,0.5^2)$ \\
-		$\rho_a,\rho_c$ & sleep‑accelerated clearances & $\mathcal{N}^+(0.5,0.25^2)$ \\
-		$\varepsilon$ & $F_a\!\to\!F_c$ spillover & $\mathrm{Beta}(2.5,12)$ \\
-		$\xi_a,\xi_c$ & stress $\to F_a,F_c$ & $\mathcal{N}^+(0.05,0.05^2)$; $\mathcal{N}^+(0.2,0.15^2)$ \\
-		\midrule
-		\textbf{Sleep \& Damage} $\lambda_w,\lambda_T$ & debt accrual (wake / training) & $\mathrm{LN}(\log 0.3,0.4^2)$; $\mathrm{LN}(\log 0.2,0.5^2)$ \\
-		$\tau_S,\mu_s$ & debt paydown (baseline / sleep) & $\mathrm{LN}(\log 6,0.4^2)$; $\mathcal{N}^+(0.3,0.15^2)$ \\
-		$\psi_0$ & base damage gain & $\mathrm{LN}(\log 0.4,0.5^2)$ \\
-		$(\kappa_E,\kappa_H,\kappa_S)$ & modality weights to damage & $\mathrm{Dir}(2,3,3)$ \\
-		$\chi_a,\chi_c$ & fatigue amplification & $\mathrm{Beta}(2,6)$ \\
-		$\tau_I,\psi_s,\psi_n$ & repair (baseline / sleep / nutrition) & $\mathrm{LN}(\log 14,0.5^2)$; $\mathcal{N}^+(0.25,0.15^2)$; $\mathcal{N}^+(0.2,0.1^2)$ \\
-		\midrule
-		\textbf{Kernel \& Sleep eff.} $h_b,\sigma_b$ & bedtime horizon/decay (h) & $\mathrm{LN}(\log 6,0.25^2)$; $\mathrm{LN}(\log 1.5,0.3^2)$ \\
-		$(\beta_E,\beta_H,\beta_S)$ & late‑day modality weights & $\mathrm{Dir}(1.5,2.5,2.0)$ \\
-		$q_0,\eta$ & baseline eff./penalty in $q(B)$ & $\mathrm{Beta}(18,3)$; $\mathrm{LN}(\log 1.0,0.6^2)$ \\
-		\midrule
-		\textbf{Readiness} $(w_{\rm end},w_{\rm str})$ & positive weights & $\mathrm{Dir}(2,2)$ \\
-		$\phi_a,\phi_c,\phi_s,\phi_i$ & penalties (fatigue/debt/damage) & $\mathcal{N}^+(0.5,0.3^2)$ (soft order $\phi_i\ge\phi_c\ge\phi_a$) \\
-	\end{longtable}
+	To emulate inter‑individual variability \emph{without} a Bayesian layer, we define three fixed parameter
+	regimes. Each regime is a small, physiologically coherent deviation from the Nominal values in
+	Tables~\ref{tab:deterministic-core}–\ref{tab:deterministic-helpers}. These synthetic athletes can be used to later compare training schedules (regimes) and illustrate how recommendations depend on athlete type.
 	
-	\subsection{Sensitivity of priors (what matters most)}
-	The prior mass on the \emph{clearance} parameters ($\tau_{fa},\tau_{fc},\tau_S,\tau_I$ and their sleep‑accelerated
-	gains) has the strongest qualitative influence on weekly dynamics; the prior on $\mu_E$ meaningfully
-	moderates strength gains when endurance volume is high (\cite{Hickson1980}); and the bedtime kernel
-	hyperparameters $(h_b,\sigma_b,\boldsymbol{\beta},\eta)$ set how punitive late sessions are for next‑day readiness
-	(\cite{Fullagar2015}). We therefore recommend tighter priors (smaller s.d.) on those blocks if the data
-	are sparse.
 	
-	\subsection{What we \emph{did not} include (and why)}
-	We purposely avoided circadian submodels and hormone kinetics; their parameters are poorly identified
-	from routine team data and would add fragility. Instead, the bedtime kernel $B$ plus $q(B)$ offers a
-	transparent, low‑parameter proxy for the same phenomenon, consistent with the minimal, auditable style
-	of the reference model. :contentReference[oaicite:3]{index=3}
 	
-	\subsection{Likelihood specification and observation model}
-	\label{sec:likelihood}
+	\paragraph{SA‑E: Aerobic responder, durable sleeper.}
+	Stronger response to endurance/HIIT stimuli, faster clearances, less sensitive to late sessions; slightly
+	endurance‑weighted readiness.
 	
-	This section defines how real (or synthetic) observations are linked to the latent states
-	\(\mathbf{z}=[A,N,F_a,F_c,S,I]^\top\) produced by the ODE in \S\ref{sec:six-odes}.  We separate:
-	(i) the \emph{forward model} (ODE integration given parameters and inputs), (ii) a small \emph{process noise}
-	that captures model mismatch, and (iii) \emph{measurement models} (observation likelihoods) for each data stream.
-	We then write the joint likelihood and hyperpriors for the noise terms.
+	\begin{center}
+		\small
+		\begin{tabular}{@{}l l@{}}
+			\toprule
+			\textbf{Parameter overrides (vs.\ Nominal)} & \textbf{New value} \\
+			\midrule
+			$k_A=0.045$;\ \ $\alpha_E,\alpha_H=(0.70,0.30)$;\ \ $k_N=0.035$ & (stronger A, modest N)\\
+			$\tau_{fa}=0.9$\,d,\ $\rho_a=0.60$;\ \ $\tau_{fc}=9$\,d,\ $\rho_c=0.50$ & (faster clearance)\\
+			$\mu_E=0.18$ & (weaker interference) \\
+			$\eta=0.70$ & (late‑session penalty milder) \\
+			$w_{\mathrm{end}},w_{\mathrm{str}}=(0.65,0.35)$ & (readiness preference) \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
 	
-	\vspace{0.5ex}
-	\paragraph{Time grid, inputs, and helper signals.}
-	We integrate the six ODEs with step \(\Delta t=1\) day unless noted otherwise. Training inputs \(u_E,u_H,u_S\)
-	are daily aggregates normalized so that a “typical hard day” satisfies
-	\(\int (u_E+u_H+u_S)\,dt\approx 1\) (Sec.~\ref{sec:data-normalization}). The bedtime proximity kernel and
-	sleep efficiency, needed by the ODE, are re-stated for completeness:
+	\paragraph{SA‑S: Power/neuromuscular responder, interference‑sensitive.}
+	Stronger response to strength, larger endurance–strength interference, slightly higher damage from strength.
+	
+	\begin{center}
+		\small
+		\begin{tabular}{@{}l l@{}}
+			\toprule
+			\textbf{Parameter overrides (vs.\ Nominal)} & \textbf{New value} \\
+			\midrule
+			$k_N=0.055$;\ \ $\alpha_S,\alpha_{HN}=(0.80,0.20)$;\ \ $k_A=0.030$ & (stronger N) \\
+			$\mu_E=0.55$ & (strong interference from endurance) \\
+			$\gamma_S=0.60$;\ \ $\kappa_S=0.45$;\ \ $\psi_0=0.45$;\ \ $\chi_a=\chi_c=0.30$ & (strength loads damage a bit more) \\
+			$w_{\mathrm{end}},w_{\mathrm{str}}=(0.35,0.65)$ & (readiness preference) \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\paragraph{SA‑R: Recovery‑limited, stress‑sensitive sleeper.}
+	Sleep and central fatigue throttle gains more; clearances slower; late training hurts sleep more; higher readiness
+	penalties on sleep and damage.
+	
+	\begin{center}
+		\small
+		\begin{tabular}{@{}l l@{}}
+			\toprule
+			\textbf{Parameter overrides (vs.\ Nominal)} & \textbf{New value} \\
+			\midrule
+			$c_S,c_c=(0.80,0.60)$ & (recovery gate tighter) \\
+			$\tau_{fa}=1.3$\,d,\ $\rho_a=0.35$;\ \ $\tau_{fc}=14$\,d,\ $\rho_c=0.30$ & (slower clearance) \\
+			$\tau_S=8$\,d,\ $\mu_s=0.25$;\ \ $\xi_s=0.25$ & (sleep debt clears slowly; stress loads sleep more) \\
+			$\eta=1.50$;\ \ $q_0=0.82$ & (late sessions more punitive; lower baseline sleep efficiency) \\
+			$\psi_s=0.20$;\ \ $\psi_n=0.15$ & (repair less helped by sleep/nutrition) \\
+			$\lambda_s=0.60$;\ \ $\lambda_i=0.70$ & (higher readiness penalties) \\
+			Initial: $S_0=0.30$ & (starts with higher sleep debt) \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+			
+	\subsection{Model illustration and analysis}
+	\label{sec:deterministic-runs}
+	
+	We illustrate the point--estimate model by simulating several canonical regimes on the Nominal athlete
+	and on the three synthetic profiles from §6.2. Each run reports:
+	(i) peak readiness $P_{\max}$ and its time;
+	(ii) the time--averaged readiness $\overline{P}$ over the horizon;
+	and (iii) the fraction of saved time points with micro--damage $I$ above a ``high'' threshold ($I>0.8$).\footnote{%
+		Metrics are computed from the simulated trajectory using the readiness aggregator
+		$P(t)=w_{\text{end}}A+w_{\text{str}}N-\lambda_aF_a-\lambda_cF_c-\lambda_sS-\lambda_iI$
+		and the six ODEs (A)--(I) in §4--§5; the model uses the deterministic parameter sets of §6.}
+	
+	\begin{table}[h!]
+		\centering
+		\small
+		\begin{tabular}{llllrrr}
+			\toprule
+			Athlete & Regime & Horizon & Description & $P_{\max}$ & $t_{\text{peak}}$ (d) & $\overline{P}$ \\
+			\midrule
+			Nominal & Early--AM HIIT & 42 d &
+			Short HIIT AM $+$ small $E$, low $B(t)$ & 0.494 & 4.29 & 0.345 \\
+			Nominal & Evening intensity & 42 d &
+			$E{+}H$ in evening $\Rightarrow$ larger $B(t)$ & 0.494 & 3.79 & 0.332 \\
+			SA--E & Polarized (midday) & 42 d &
+			High $E$, tiny $H$, both midday & 0.522 & 4.58 & 0.368 \\
+			SA--S & Split day (AM $E$, PM $S$) & 42 d &
+			AM endurance, PM strength & 0.500 & 4.58 & 0.343 \\
+			SA--R & Alternating hard/easy & 42 d &
+			Hard: $E{+}H{+}S$; Easy: minimal $+$ nap & 0.422 & 7.00 & 0.291 \\
+			Nominal & Taper (early sessions) & 21 d &
+			Volume $\downarrow$, intensity kept, early day & 0.518 & 5.04 & 0.452 \\
+			SA--R & Sleep extension $+$ nap & 28 d &
+			Longer nightly $s(t)$ $+$ short nap & 0.464 & 6.62 & 0.384 \\
+			\bottomrule
+		\end{tabular}
+		\caption{Deterministic runs (fixed parameters and regimes). All runs had
+			$\mathrm{frac\_time}(I>0.8)=0.0$ at the default hazard threshold.}
+		\label{tab:runs}
+	\end{table}
+
+	\begin{figure}
+		\centering
+	\begin{tikzpicture}
+		\begin{groupplot}[
+			group style={group size=2 by 1, horizontal sep=18mm},
+			width=0.46\textwidth, height=0.34\textwidth,
+			grid=both,
+			xlabel={Day}, ylabel={$P(t)$ (readiness)},
+			% --- legend settings (shared across the group) ---
+			legend to name=combinedLegend,         % collect legend entries here
+			legend columns=3,                       % tweak to 2/3/4 as you prefer
+			legend style={
+				draw=none, fill=none, font=\footnotesize,
+				/tikz/every even column/.style={column sep=0.8em},
+				/tikz/every odd column/.style={}
+			}
+			]
+			
+			% ---------- Left panel ----------
+			\nextgroupplot[
+			title={(a) 42-day blocks (training schedules)}
+			]
+			\addplot+[thick, mark=none] table[col sep=comma,x index=0,y index=1]{figs/nominal_early_am_hiit.csv};
+			\addlegendentry{Nominal: Early–AM HIIT}
+			
+			\addplot+[thick, mark=none] table[col sep=comma,x index=0,y index=1]{figs/nominal_evening_intensity.csv};
+			\addlegendentry{Nominal: Evening intensity}
+			
+			\addplot+[thick, mark=none, teal!75!black] table[col sep=comma,x index=0,y index=1]{figs/sae_polarized_midday.csv};
+			\addlegendentry{SA‑E: Polarized (midday)}
+			
+			\addplot+[thick, mark=none, violet!80!black] table[col sep=comma,x index=0,y index=1]{figs/sas_split_day.csv};
+			\addlegendentry{SA‑S: Split day}
+			
+			% SA‑R — Alternating hard/easy
+			\addplot+[thick, mark=none, orange!85!black] table[x index=0, y index=1, col sep=comma]{figs/sar_alt_hard_easy.csv};
+			
+			% ---------- Right panel ----------
+			\nextgroupplot[
+			title={(b) Event-facing \& sleep-hygiene blocks},
+			yticklabels=\empty
+			]
+			\addplot+[thick, mark=none, black] table[col sep=comma,x index=0,y index=1]{figs/nominal_taper.csv};
+			
+			\addplot+[thick, mark=none, green!55!black] table[col sep=comma,x index=0,y index=1]{figs/sar_sleep_extension.csv};
+			
+		\end{groupplot}
+		
+		% Place the shared legend centered below both panels (adjust vspace as needed).
+		\node at ($(group c1r1.south)!0.5!(group c2r1.south)$) [below=1.0em]
+		{\pgfplotslegendfromname{combinedLegend}};
+		
+
+		
+	\end{tikzpicture}
+		\caption{\textbf{Readiness trajectories $P(t)$ for representative regime$\times$athlete scenarios.}
+	Panel~(a) overlays 42‑day training blocks. Moving intensity earlier (blue) improves the readiness
+	envelope relative to evening intensity (red) by preserving nightly clearance.
+	An endurance‑leaning responder benefits most from a midday polarized block (teal), while a strength‑leaning
+	responder retains strong peaks under a split‑day schedule (violet) at some average‑readiness cost from late
+	strength sessions. Recovery‑limited athletes prefer alternating microcycles (orange) to avoid accumulation
+	of chronic load. Panel~(b) shows event‑facing and sleep‑hygiene blocks with shorter horizons: a classic
+	taper (black) yields a readiness rebound near day~5, and extending sleep plus a short nap (green) raises the
+	average readiness for a recovery‑limited profile. (Exact peaks and means are reported in
+	Table~\ref{tab:runs}.)}
+	\label{fig:pgfplots_readiness}
+	\end{figure}
+
+
+	
+	\paragraph{Summary.}
+	Across 42--day microcycles, the \emph{midday polarized} block for the aerobic responder (SA--E)
+	achieves the highest envelope ($P_{\max}=0.522$) and the largest mean readiness ($\overline{P}=0.368$).
+	On the Nominal athlete, \emph{evening intensity} matches the early--morning peak height
+	($P_{\max}=0.494$) yet lowers the mean ($0.332$ vs.\ $0.345$), consistent with a sleep--efficiency
+	penalty after late sessions. The \emph{split--day} pattern (AM $E$, PM $S$) fits the neuromuscular
+	responder (SA--S) but the evening strength block trims the average ($\overline{P}=0.343$).
+	The recovery--limited athlete (SA--R) performs poorly on an \emph{alternating hard/easy} schedule
+	($\overline{P}=0.291$), yet improves markedly under a \emph{sleep--extension + nap} policy
+	($\overline{P}=0.384$). Finally, the 3--week \emph{taper} in the Nominal athlete exhibits the expected
+	profile: mean readiness rises to $0.452$ with a peak around day~5.
+	
+	\paragraph{Mechanistic interpretation (link to the ODE terms).}
+	The observed patterns follow directly from the signed couplings and gates in §4:
+	(i) \textbf{Evening vs.~early sessions.} Evening $E/H$ increases the bedtime kernel $B(t)$ and reduces
+	that night’s sleep efficiency $q(B)=q_0/(1+\eta B)$, so the sleep--accelerated clearance terms in
+	(\textit{Fa})--(\textit{I}) are smaller. This depresses $\overline{P}$ while leaving short--term peaks similar.
+	(ii) \textbf{Midday polarized (SA--E).} Stronger aerobic stimulus gain and faster clearances (SA--E overrides)
+	combined with small $B(t)$ raise $A$, lower $F_c$ and $S$, and yield the largest envelope.
+	(iii) \textbf{Split day (SA--S).} The PM strength pulse raises $B(t)$; despite stronger $N$ stimulus, the evening
+	penalty reduces nightly repair, so the mean is comparable to Nominal early--AM HIIT rather than superior.
+	(iv) \textbf{Recovery--limited (SA--R).} Tighter recovery gate $G_{\mathrm{rec}}(S,F_c)=1/(1+c_SS+c_cF_c)$,
+	slower clearances, and harsher late--session penalty (larger $\eta$) push the peak later (day~7) and lower
+	$\overline{P}$ on alternating hard/easy; by contrast, longer $s(t)$ plus a short nap increases the
+	sleep--accelerated clearance $(\cdot)\,s\,q(B)$ in (\textit{Fa}),(\textit{Fc}),(\textit{S}),(\textit{I}), lifting the entire envelope.
+	(v) \textbf{Taper.} Volume reduction lowers forcing into $F_a$ and spillover to $F_c$ while earlier sessions keep
+	$B(t)$ small; capacities are maintained by the saturations $(1-A/K_A)$ and $(1-N/K_N)$ while
+	$S$ and $I$ decay, producing a peak near day~5.
+	
+	\paragraph{Risk and availability.}
+	At the default hazard threshold ($I>0.8$), all runs spent \emph{zero} proportion of time in high risk, consistent
+	with week--scale repair in (\textit{I}) and with the moderate loads used here.
+	
+	\paragraph{Practical takeaways for regime design.}
+	(i) For identical work late vs.\ early, expect a small but systematic drop in mean readiness; move
+	key intensity earlier when possible. (ii) Midday, high--volume polarized endurance is a strong default
+	for aerobic responders, avoiding both the interference gate $G_{\mathrm{int}}(u_E)$ and the bedtime penalty.
+	(iii) Recovery--limited profiles benefit disproportionately from increased sleep opportunity and naps.
+	(iv) For event week, the taper confirms common practice: reduce volume, retain brief intensity, and
+	run sessions well before bedtime.
+	
+	\section{Long‑term behavior of solutions}
+	\label{sec:longterm}
+	
+	In this section we analyze the qualitative (long‑time) behavior of the six–state system introduced in
+	Sections 4 and 5.% 
+	Due to time constraints, we keep the discussion computation‑free:
+	where numerical values would normally be inserted (nullcline intersections, eigenvalues), we state the
+	algebraic forms and indicate the expected behavior under our chosen parameter magnitudes.%
+	This section relies on the same sign structure, gates, and positivity/forward‑invariance properties
+	established earlier (Sec.~4.3).
+
+	
+	\subsection{Setups: stationary vs.\ weekly‑repeating inputs}
+	
+	The model is a forced ODE $\dot z = f(z,u)$ with state 
+	$z=(A,N,F_a,F_c,S,I)^{\top}$ and exogenous inputs 
+	$u=(u_E,u_H,u_S,B,s,n,x)^{\top}$ (Sec.~5.2).
+	We consider two practically relevant long‑time regimes:
+	
+	\paragraph{(i) Stationary inputs (constant-in-time).}
+	This is a deterministic abstraction of a “typical” training climate in which daily
+	inputs are held at constant effective levels (e.g., daily averages or block plateaus): 
+	$u_E(t)\equiv \bar u_E$, $u_H\equiv \bar u_H$, $u_S\equiv \bar u_S$, $s\equiv \bar s$, 
+	$n\equiv \bar n$, $x\equiv \bar x$, and $B(t)\equiv \bar B$ computed from the fixed training levels via the kernel in~(11).
+	Under bounded inputs the right‑hand side is locally Lipschitz, the nonnegative orthant is forward‑invariant, and 
+	$A,N$ are bounded by their asymptotes $K_A,K_N$ (Sec.~4.3). 
+	Therefore at least one steady solution (equilibrium) $z^\star$ exists.
+	
+	\paragraph{(ii) Weekly‑repeating inputs (calendar regimes).}
+	Most regimes in Sec.~2 repeat by design (e.g., 7‑day microcycles, tapers). For a period $T$ (e.g., $T\!=\!7$\,d)
+	let $\mathcal{P}:\mathcal{X}\to\mathcal{X}$ be the Poincaré map that advances the solution one period.
+	Over a compact, convex, positively invariant state set $\mathcal{X}$ the map $\mathcal{P}$ is continuous; 
+	by Brouwer’s fixed‑point theorem it has at least one fixed point $z^\star$ corresponding to a $T$‑periodic solution
+	$z^\star(t)=z^\star(t+T)$. In practice this solution is the \emph{entrained} weekly trajectory under the repeated regime.
+
+	
+	\subsection{Closed‑form nullclines and steady–state formulas (stationary inputs)}
+	\label{sec:nullclines}
+	
+	With stationary inputs we can write the six equilibrium relations by setting $\dot z = 0$.  
+	For readability we denote the stationary inputs with bars (e.g., $\bar u_E$) and the stationary sleep‑efficiency 
+	$q(\bar B)=\bar q$.
+	
+	\paragraph{Fatigue and sleep states.} 
+	These equations are affine in the state, yielding explicit nullclines:
+	\begin{align}
+		F_a^\star 
+		&= \frac{\gamma_E\bar u_E+\gamma_H\bar u_H+\gamma_S\bar u_S}
+		{\frac{1}{\tau_{fa}}+\rho_a\,\bar s\,\bar q},  \label{eq:Fa-star}\\[2mm]
+		F_c^\star 
+		&= \frac{\varepsilon F_a^\star + \xi_c\,\bar x}
+		{\frac{1}{\tau_{fc}}+\rho_c\,\bar s\,\bar q}, \label{eq:Fc-star}\\[2mm]
+		S^\star 
+		&= \frac{\lambda_w(1-\bar s) + \lambda_T(\gamma_E\bar u_E+\gamma_H\bar u_H+\gamma_S\bar u_S)
+			+ \xi_s\,\bar x}
+		{\frac{1}{\tau_S}+\mu_s\,\bar s\,\bar q}. \label{eq:S-star}
+	\end{align}
+	Each fraction is well‑defined and positive because the denominators are strictly positive (baseline clearance plus sleep‑accelerated paydown).%
+	These expressions formalize the intuitive trade‑offs discussed in Sec.~4.2: larger nightly sleep $\bar s$ and
+	lower bedtime proximity $\bar B$ (hence larger $\bar q$) reduce the steady \(F_a,F_c,S\).
+	
+	\paragraph{Micro‑damage.}
+	The $I$ equation is linear in $I$ but multiplicatively coupled to $F_a,F_c$:
+	\begin{equation}
+		I^\star \;=\; 
+		\frac{\psi_0 \left(\kappa_E\bar u_E+\kappa_H\bar u_H+\kappa_S\bar u_S\right)
+			\left(1+\chi_a F_a^\star+\chi_c F_c^\star\right)}
+		{\frac{1}{\tau_I}+\psi_s\,\bar s\,\bar q+\psi_n\,\bar n}. \label{eq:I-star}
+	\end{equation}
+	As expected, better sleep ($\bar s\uparrow$, $\bar q\uparrow$) and better fueling ($\bar n\uparrow$) reduce $I^\star$, while greater load
+	and/or fatigue amplification increase it (via the numerator).
+	
+	\paragraph{Trainable capacities.}
+	Let
 	\[
-	B=\!\int_{0}^{h_b}\!\bigl(\beta_E u_E(t-\Delta)+\beta_H u_H(t-\Delta)+\beta_S u_S(t-\Delta)\bigr)
-	e^{-\Delta/\sigma_b}\,d\Delta,\qquad
-	q(B)=\frac{q_0}{1+\eta B}.
+	G_{\mathrm{rec}}^\star \equiv \frac{1}{1+c_S S^\star + c_c F_c^\star}, 
+	\qquad
+	G_{\mathrm{int}}^\star \equiv \frac{1}{1+\mu_E \bar u_E},
 	\]
-	When multiple training sessions occur per day, we compute \(B\) using the within‑day timing and then
-	average to the day boundary before applying \(q(B)\).
-	
-	\paragraph{Forward model (deterministic skeleton).}
-	Given parameters \(\theta\), inputs \(\mathbf{u}\), and initial state \(\mathbf{z}_0\), the ODE flow \(\Phi_{\Delta t}\) produces
-	\(\tilde{\mathbf{z}}_{k+1}=\Phi_{\Delta t}(\mathbf{z}_k,\mathbf{u}_k;\theta)\) on the daily grid \(t_k\).
-	
-	\paragraph{Process noise (innovation).}
-	To tolerate model misspecification we include small, mean‑zero innovations on each state:
-	\begin{equation}
-		\mathbf{z}_{k+1}=\Phi_{\Delta t}(\mathbf{z}_k,\mathbf{u}_k;\theta)+\boldsymbol{\varepsilon}_k,\qquad
-		\boldsymbol{\varepsilon}_k\sim\mathcal{N}\!\bigl(\mathbf{0},\operatorname{diag}(\sigma_A^2,\sigma_N^2,\sigma_{Fa}^2,\sigma_{Fc}^2,\sigma_S^2,\sigma_I^2)\bigr).
-		\label{eq:state-innov}
-	\end{equation}
-	These \(\sigma_\cdot\) are \emph{process} (not measurement) standard deviations; priors appear below.  Setting
-	them near zero recovers a purely deterministic state evolution.
-	
-	\paragraph{Observation calendar.}
-	Each channel has its own set of observation times:
-	\(\mathcal{T}_A,\mathcal{T}_N,\mathcal{T}_{Fa},\mathcal{T}_{Fc},\mathcal{T}_{S},\mathcal{T}_{I}\).  The model handles irregular sampling and missing values naturally by omitting
-	absent terms from the likelihood.
-	
-	\subsubsection*{Measurement models (per channel)}
-	Below, \(y_{\cdot,k}\) denotes an observation at day \(t_k\). We use link functions that match what practitioners actually record, and we make sign conventions explicit so posterior coefficients are interpretable.
-	
-	\paragraph{Capacity observations \(A,N\) (field tests).}
-	Practically, coaches observe performances that are monotone in \(A\) and \(N\): e.g., critical‑power/pace tests or best‑effort segments for \(A\) and CMJ/1RM/sprint splits for \(N\) \cite{Skiba2012,Banister1975,Busso2003}.
-	We define test scores scaled to \([0,1]\) (by sport‑specific reference tables) and work on the logit scale:
+	and define the effective capacity stimuli
+	\[
+	G_A \equiv k_A(\alpha_E\bar u_E+\alpha_H\bar u_H)\,G_{\mathrm{rec}}^\star, 
+	\qquad
+	G_N \equiv k_N(\alpha_S\bar u_S+\alpha_{HN}\bar u_H)\,G_{\mathrm{rec}}^\star G_{\mathrm{int}}^\star.
+	\]
+	Rearranging the logistic‑with‑detraining forms (A)–(N) yields closed‑form steady states:
 	\begin{align}
-		y_{A,k}^{(\mathrm{logit})} &= \operatorname{logit}(y_{A,k}) \sim \mathcal{N}\!\big(\operatorname{logit}(A_{t_k})+\alpha_{A0},\,\tau_A^{-1}\big),\quad k\in\mathcal{T}_A, \label{eq:likeA}\\
-		y_{N,k}^{(\mathrm{logit})} &= \operatorname{logit}(y_{N,k}) \sim \mathcal{N}\!\big(\operatorname{logit}(N_{t_k})+\alpha_{N0},\,\tau_N^{-1}\big),\quad k\in\mathcal{T}_N. \label{eq:likeN}
+		A^\star &= 
+		\frac{G_A - \theta_{AI} I^\star}{\tfrac{G_A}{K_A} + \tfrac{1}{\tau_A}}, 
+		\qquad
+		0 \le A^\star \le K_A, \label{eq:A-star}\\[1mm]
+		N^\star &= 
+		\frac{G_N - \theta_{NI} I^\star}{\tfrac{G_N}{K_N} + \tfrac{1}{\tau_N}}, 
+		\qquad
+		0 \le N^\star \le K_N. \label{eq:N-star}
 	\end{align}
-	Offsets \(\alpha_{A0},\alpha_{N0}\) absorb mapping biases between tests and latent capacities; precisions \(\tau_A,\tau_N\) are measurement precisions on the logit scale.
+	Two mechanisms depress realized capacity at steady state: (i) poor recovery (small $G_{\mathrm{rec}}^\star$) via large $S^\star,F_c^\star$ 
+	and (ii) the injury penalty ($\theta_{\cdot I} I^\star$). 
+	The endurance–strength interference appears only in $N^\star$ through $G_{\mathrm{int}}^\star$ (smaller when $\bar u_E$ is high).
 	
-	\paragraph{Acute fatigue \(F_a\) (session‑level load proxy).}
-	We link \(F_a\) to session RPE, sRPE*duration, or standardized acute‑load residuals. Let \(y_{Fa,k}\) be a z‑score of session‑level perceived exertion:
+	\paragraph{Readiness at steady state.} 
+	Substituting \eqref{eq:Fa-star}–\eqref{eq:N-star} into the aggregator gives
 	\begin{equation}
-		y_{Fa,k}\sim \mathcal{N}\big(\beta_{a0}+\beta_{a1} F_{a,t_k},\,\tau_{Fa}^{-1}\big),\qquad \beta_{a1}>0,\quad k\in\mathcal{T}_{Fa}.
-		\label{eq:likeFa}
+		P^\star \;=\; w_{\mathrm{end}}A^\star + w_{\mathrm{str}}N^\star 
+		- \lambda_a F_a^\star - \lambda_c F_c^\star - \lambda_s S^\star - \lambda_i I^\star.
+		\label{eq:P-star}
 	\end{equation}
-	The positive slope encodes that higher \(F_a\) corresponds to higher perceived load the same day or next morning.
+	This expression provides a transparent algebraic summary of how constant training, sleep, and context
+	determine the long‑run readiness envelope for a given parameterization (Sec.~6).%
+
 	
-	\paragraph{Chronic fatigue \(F_c\) (autonomic markers).}
-	We map to HRV‑based recovery indices or resting‑heart‑rate (RHR) trends, which respond on day‑to‑week scales \cite{Buchheit2014}. Using a z‑score of morning HRV (\(y_{Fc,k}\), where higher is “better”):
-	\begin{equation}
-		y_{Fc,k}\sim \mathcal{N}\big(\beta_{c0}-\beta_{c1} F_{c,t_k},\,\tau_{Fc}^{-1}\big),\qquad \beta_{c1}>0,\quad k\in\mathcal{T}_{Fc}.
-		\label{eq:likeFc}
-	\end{equation}
-	The negative sign reflects the empirical HRV–fatigue relationship.
+	\subsection{Jacobian linearization and local stability (what to expect)}
+	\label{sec:jacobian}
 	
-	\paragraph{Sleep debt \(S\) (actigraphy/diary efficiency).}
-	Let \(e_k\in(0,1)\) be nightly sleep efficiency or quality (fraction of time asleep while in bed) from actigraphy \cite{Fullagar2015}.
-	We model a Beta likelihood with logit link (“efficiency decreases as \(S\) increases”):
-	\begin{align}
-		m_k &= \operatorname{logit}^{-1}\big(\delta_0 - \delta_1 S_{t_k}\big),\qquad \delta_1>0, \nonumber\\
-		e_k &\sim \mathrm{Beta}\big(\kappa_S m_k,\;\kappa_S (1-m_k)\big),\qquad k\in\mathcal{T}_S. \label{eq:likeS}
-	\end{align}
-	Here \(\kappa_S\) is a concentration (higher \(\kappa_S\Rightarrow\) lower dispersion). If total sleep minutes are also observed, a second Gaussian term on log‑minutes with slope \(-\delta_1'\, S_{t_k}\) can be added (independent conditional on \(S\)).
+	Let $J(z^\star)$ be the Jacobian of the right‑hand side at an equilibrium $z^\star$.
+	Its sign structure is informative even without numerical values:
 	
-	\paragraph{Micro‑damage \(I\) (soreness + injury events).}
-	We support two channels: (i) soreness VAS (0–10) and (ii) rare injury events. For soreness \(y_{I,k}^{(\mathrm{VAS})}\):
-	\begin{equation}
-		y_{I,k}^{(\mathrm{VAS})}\sim \mathcal{N}\big(\gamma_{I0}+\gamma_{I1} I_{t_k},\,\tau_{I,\mathrm{VAS}}^{-1}\big),\qquad \gamma_{I1}>0.
-		\label{eq:likeI-vas}
-	\end{equation}
-	For time‑loss injury incidence over day \([t_k,t_{k+1})\) we use a Bernoulli with log‑link intensity increasing in \(I\) \cite{Gabbett2016}:
-	\begin{align}
-		\lambda_k &= \lambda_0\,\exp\{\gamma_{I} I_{t_k}\}, \qquad p_k \;=\; 1-\exp\{-\lambda_k \Delta t\}, \nonumber\\
-		y_{I,k}^{(\mathrm{inj})} &\sim \mathrm{Bernoulli}(p_k),\qquad k\in\mathcal{T}_{I,\mathrm{inj}}.
-		\label{eq:likeI-injury}
-	\end{align}
-	A zero‑inflated Poisson alternative fits aggregated counts over weeks; the Bernoulli formulation leverages the “rare‑event as Poisson” approximation on the daily grid.
-	
-	\subsubsection*{Noise hyperpriors (measurement and process)}
-	We complete the likelihood with weakly informative priors that match the scales used above:
-	\begin{align*}
-		&\textbf{Measurement precisions:}\quad
-		\tau_A,\tau_N,\tau_{Fa},\tau_{Fc},\tau_{I,\mathrm{VAS}}\sim \mathrm{Gamma}(2,\,2)\ \text{(means 1; adjust per dataset)},\\
-		&\textbf{Beta concentration:}\quad \kappa_S\sim \mathrm{Gamma}(3,\,0.5)\ \text{(mean 6; moderately concentrated)},\\
-		&\textbf{Linear coefficients:}\quad \alpha_{A0},\alpha_{N0},\beta_{a0},\beta_{c0},\gamma_{I0}\sim \mathcal{N}(0,\,1),\\
-		&\beta_{a1},\beta_{c1},\delta_1,\gamma_{I1}\sim \mathcal{N}^+(0.5,\,0.3^2),\qquad \delta_0\sim \mathcal{N}(\operatorname{logit}(0.85),\,0.4^2),\\
-		&\lambda_0\sim \mathrm{Gamma}(1.5,\,15)\ \text{(rare baseline injuries)},\qquad \gamma_I\sim \mathcal{N}^+(0.6,\,0.3^2),\\
-		&\textbf{Process s.d.\ in \eqref{eq:state-innov}:}\quad
-		\sigma_A,\sigma_N,\sigma_{Fa},\sigma_{Fc},\sigma_S,\sigma_I\sim \mathcal{N}^+(0.05,\,0.05^2).
-	\end{align*}
-	Signs are encoded by half‑normals \(\mathcal{N}^+\) when physiology dictates monotonicity (e.g., higher \(F_c\) lowers HRV).
-	
-	\subsubsection*{Joint likelihood (factorization)}
-	Let \(\mathbf{Z}=\{\mathbf{z}_k\}_{k=0}^{K}\) be the latent daily states and \(\mathbf{Y}\) the multichannel observations. Conditional on parameters \(\theta\), inputs, and initial state \(\mathbf{z}_0\), the joint density factors as
-	\begin{align}
-		p(\mathbf{Y},\mathbf{Z}\mid \theta)
-		&= p(\mathbf{z}_0)\,\prod_{k=0}^{K-1}
-		\underbrace{\mathcal{N}\!\big(\mathbf{z}_{k+1}\,;\,\Phi_{\Delta t}(\mathbf{z}_k,\mathbf{u}_k;\theta),\,\Sigma_{\mathrm{proc}}\big)}_{\text{process model \eqref{eq:state-innov}}}\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_A} \mathcal{N}\!\big(y_{A,k}^{(\mathrm{logit})}\,;\operatorname{logit}(A_{t_k})+\alpha_{A0},\,\tau_A^{-1}\big)\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_N} \mathcal{N}\!\big(y_{N,k}^{(\mathrm{logit})}\,;\operatorname{logit}(N_{t_k})+\alpha_{N0},\,\tau_N^{-1}\big)\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_{Fa}} \mathcal{N}\!\big(y_{Fa,k}\,;\beta_{a0}+\beta_{a1}F_{a,t_k},\,\tau_{Fa}^{-1}\big)\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_{Fc}} \mathcal{N}\!\big(y_{Fc,k}\,;\beta_{c0}-\beta_{c1}F_{c,t_k},\,\tau_{Fc}^{-1}\big)\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_{S}} \mathrm{Beta}\!\big(e_k\,;\kappa_S m_k,\kappa_S(1-m_k)\big) \nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_{I,\mathrm{VAS}}}\mathcal{N}\!\big(y_{I,k}^{(\mathrm{VAS})}\,;\gamma_{I0}+\gamma_{I1}I_{t_k},\,\tau_{I,\mathrm{VAS}}^{-1}\big)\nonumber\\
-		&\quad\times \prod_{k\in\mathcal{T}_{I,\mathrm{inj}}}\mathrm{Bernoulli}\!\big(y_{I,k}^{(\mathrm{inj})}\,;p_k\big).
-		\label{eq:joint-like}
-	\end{align}
-	Here \(\Sigma_{\mathrm{proc}}=\operatorname{diag}(\sigma_A^2,\sigma_N^2,\sigma_{Fa}^2,\sigma_{Fc}^2,\sigma_S^2,\sigma_I^2)\), and \(m_k\) and \(p_k\) are defined in \eqref{eq:likeS}–\eqref{eq:likeI-injury}.
-	
-	\subsubsection*{Remarks on identifiability and transformations}
-	\begin{itemize}[leftmargin=1.3em]
-		\item \emph{Boundary states:} We work with \(\operatorname{logit}(A),\operatorname{logit}(N)\) in the measurement model to respect \([0,1]\) bounds; the ODE keeps \(A,N\in[0,1]\) by construction.
-		\item \emph{Scaling:} If the practitioner uses a different normalization for \(u_\cdot\), the gains \(k_\cdot,\gamma_\cdot,\psi_0\) absorb the scale. This is handled during calibration; the likelihood remains unchanged.
-		\item \emph{Multi‑athlete hierarchical option:} For multiple athletes \(i\), add athlete‑specific offsets \(\alpha_{A0}^{(i)},\alpha_{N0}^{(i)}\) and slopes \(\beta_{\cdot1}^{(i)}\) with group‑level priors; this stabilizes individual fits when some channels are sparse.
+	\begin{itemize}
+		\item \textbf{Diagonal terms negative.}  
+		Each equation contains a linear sink in its own state (detraining for $A,N$; 
+		baseline+\;sleep/nutrition clearance for $F_a,F_c,S,I$). Therefore $\partial \dot A/\partial A<0$, 
+		$\partial \dot N/\partial N<0$, $\partial \dot F_a/\partial F_a=-(1/\tau_{fa}+\rho_a\bar s\bar q)<0$, etc.
+		
+		\item \textbf{Upper–triangular fatigue–risk block.}
+		$F_c$ depends on $F_a$ ($\partial \dot F_c/\partial F_a=\varepsilon>0$) and itself (negative diagonal),
+		$S$ is self‑damped only, and $I$ depends on $F_a,F_c$ through the fatigue amplifiers ($\partial \dot I/\partial F_a=\psi_0\chi_a\cdot\text{load}>0$, 
+		$\partial \dot I/\partial F_c=\psi_0\chi_c\cdot\text{load}>0$) and on itself (negative diagonal).
+		Thus the $(F_a,F_c,S,I)$ submatrix is lower‑block‑triangular with strictly negative diagonal entries.
+		
+		\item \textbf{Recovery and injury gates into capacities.}
+		$A$ and $N$ receive \emph{inhibitory} couplings from $S,F_c$ via $G_{\mathrm{rec}}$ and from $I$ via $\theta_{\cdot I}$
+		(all partials $\le 0$), and $N$ receives an additional inhibitory coupling from $\bar u_E$ via $G_{\mathrm{int}}$.
 	\end{itemize}
 	
-	\subsubsection*{Calibration notes (posterior computation)}
-	We recommend HMC/NUTS with an adjoint‑sensitivity ODE solver (for differentiability). Daily integration with a fixed‑step RK4 or Dormand–Prince (tol \(10^{-6}\)) is sufficient. We monitor \(\widehat{R}\) and effective sample size and perform posterior predictive checks (PPCs) for all channels:
-	(i) simulate \(\mathbf{Z}\) forward from posterior draws, (ii) simulate \(\mathbf{Y}\) from \eqref{eq:joint-like}, and (iii) compare to held‑out data.
+	\paragraph{Sufficient conditions for local asymptotic stability.}
+	A Gershgorin–type bound shows that if each diagonal sink dominates its row’s (absolute) cross‑couplings,
+	all eigenvalues have negative real parts. Concretely:
+	\begin{align*}
+		\left(\tfrac{1}{\tau_{fa}}+\rho_a\bar s\bar q\right) &>\; 0 \quad\text{(already true)},\\
+		\left(\tfrac{1}{\tau_{fc}}+\rho_c\bar s\bar q\right) &>\; \varepsilon,\\
+		\left(\tfrac{1}{\tau_I}+\psi_s\bar s\bar q+\psi_n\bar n\right) &>\; 
+		\psi_0\big(\chi_a\lvert \partial I\!/\partial F_a\rvert+\chi_c\lvert \partial I\!/\partial F_c\rvert\big),\\
+		\left(\tfrac{G_A}{K_A}+\tfrac{1}{\tau_A}\right) &>\; 
+		\left\lvert \frac{\partial \dot A}{\partial S}\right\rvert+
+		\left\lvert \frac{\partial \dot A}{\partial F_c}\right\rvert+
+		\theta_{AI},\qquad
+		\left(\tfrac{G_N}{K_N}+\tfrac{1}{\tau_N}\right) \;>\;
+		\left\lvert \frac{\partial \dot N}{\partial S}\right\rvert+
+		\left\lvert \frac{\partial \dot N}{\partial F_c}\right\rvert+
+		\theta_{NI}.
+	\end{align*}
+	At our nominal magnitudes (Sec.~6), the fatigue and risk sinks are intentionally large
+	(1–14\,d scales plus sleep/nutrition multipliers), while cross‑couplings are modest;
+	hence we expect the Jacobian at the stationary equilibrium to be Hurwitz (all eigenvalues with negative
+	real parts).%
 	
-	\subsubsection*{Literature anchors for the links}
-	The choice of channels and signs follows sports‑science practice: capacity–performance mapping through critical‑power/CMJ tests \cite{Skiba2012,Banister1975,Busso2003}, HRV/RHR as slow‑fatigue proxies \cite{Buchheit2014}, sleep efficiency as a function of late‑day training \cite{Fullagar2015}, and load‑related injury risk increasing with micro‑damage \cite{Gabbett2016}.  The section’s layout mirrors the clear “observation model” style used by the reference report.  \emph{(See its Section 6 for stylistic comparison.)} {\footnotesize\mbox{}} \hfill \emph{Reference‑report style cue:} :contentReference[oaicite:1]{index=1}
+	\paragraph{Weekly‑repeating inputs.}
+	Linearization about a $T$‑periodic solution $z^\star(t)$ involves the monodromy matrix $\Phi(T)$ (state‑transition over one period).
+	Local stability corresponds to all Floquet multipliers inside the unit circle. 
+	Given the strong sinks in each state during sleep ($s=1$, $q(B)$ near $q_0$), and the block‑triangular structure noted above, 
+	we expect $\rho(\Phi(T))<1$ (contractivity) under moderate loads—i.e., the weekly Poincaré fixed point is locally attracting.
 	
+	\subsection{Bounds, invariance, and uniqueness heuristics}
 	
+	\paragraph{Forward invariance and boundedness.}
+	With nonnegative inputs, the nonnegative orthant is positively invariant (all sinks are proportional to the state),
+	and $A,N$ remain in $[0,K_A]\times[0,K_N]$ by construction. Thus all trajectories enter and remain in a compact set.%
+	These properties were established when we formulated the right‑hand side and carry over here.
 	
+	\paragraph{Uniqueness of steady behavior (heuristic).}
+	Because the $(F_a,F_c,S,I)$ block is driven \emph{linearly} by exogenous inputs with strictly negative diagonals,
+	and the capacities receive only inhibitory feedback from these states, multiple isolated equilibria are unlikely
+	under stationary inputs. We therefore \emph{expect} a unique equilibrium $z^\star$ and a unique $T$‑periodic attractor under
+	weekly‑repeating inputs for the parameter ranges of Sec.~6, with global attraction from physiologically reasonable initial
+	conditions. (A formal proof would check monotonicity/contractivity of the Poincaré map; we do not pursue it here.)
 	
+	\subsection{Interpretation for coaching decisions}
 	
+	Even without numerics, Eqs.~\eqref{eq:Fa-star}–\eqref{eq:P-star} support clear design rules:
 	
+	\begin{itemize}
+		\item \textbf{Move intensity away from bedtime.} 
+		$B\!\downarrow\Rightarrow \bar q\!\uparrow$ improves the denominators of 
+		\eqref{eq:Fa-star}–\eqref{eq:S-star} and \eqref{eq:I-star}, reducing steady $F_a,F_c,S,I$ and increasing $P^\star$.
+		This formalizes the “evening penalty” described qualitatively in Sec.~2 and implemented in $q(B)$.
+		
+		\item \textbf{Sleep and fueling leverage.}
+		Longer sleep windows ($\bar s\uparrow$) and adequate nutrition ($\bar n\uparrow$) raise the clearance terms in 
+		\eqref{eq:S-star} and \eqref{eq:I-star}, respectively, lowering steady sleep debt and micro‑damage.
+		
+		\item \textbf{Concurrent‑training interference.}
+		High steady endurance work ($\bar u_E$) damps $N^\star$ through $G_{\mathrm{int}}^\star$, 
+		capturing the classic interference effect; practical implication: separate heavy strength from high endurance load 
+		to raise $N^\star$ without sacrificing $A^\star$.
+		
+		\item \textbf{Risk throttles capacity.}
+		Large $I^\star$ pulls down both $A^\star$ and $N^\star$ (\eqref{eq:A-star}–\eqref{eq:N-star}) 
+		and also reduces $P^\star$ directly; thus regimes that keep $I$ low (earlier sessions, sleep extension, nutrition) 
+		should have higher long‑run readiness envelopes.
+	\end{itemize}
 	
+	\subsection{What we would compute next}
+	As numerical computations, one would:
+	(i) evaluate \eqref{eq:Fa-star}–\eqref{eq:N-star} at the deterministic parameter sets of Sec.~6 
+	(Nominal, SA‑E, SA‑S, SA‑R) and at regime‑specific stationary inputs (or weekly averages);
+	(ii) assemble $J(z^\star)$ and report its six eigenvalues (stationary) or the Floquet spectrum (weekly);
+	and (iii) compare $P^\star$ across regimes and athlete types.  
+	Based on our parameterization (Sec.~6), we \emph{expect} all eigenvalues to have negative real parts 
+	(moderate off‑diagonal couplings, strong diagonal sinks), the weekly Poincaré map to be a contraction 
+	under the loads we explore, and $P^\star$ to follow the qualitative ordering already observed in Sec.~6.3’s 
+	simulation narratives (early/midday intensity and sleep‑hygiene policies raising the envelope).%
+	Those narratives and parameter magnitudes are documented in Sec.~6 and the accompanying code 
+	module (\texttt{AthleteModel}), which implements the identical right‑hand side Eqs.~(A)–(I). 
+	
+	% =========================
+	% 11. Solution and results
+	% =========================
+	\section{Solution and results}\label{sec:solution-results}
+	
+	\paragraph{What counts as a “solution” here.}
+	For our purposes a \emph{solution} is a fully specified evaluation of a coach-controlled \emph{regime} (left column of Fig.~\ref{fig:wiring}) when passed through the six-state ODE (center column) to produce the derived readiness signal \(P(t)\) (right column).
+	A complete solution is characterized by:
+	(i) the regime’s five input streams \(u_E,u_H,u_S,s,n\) and the bedtime kernel \(B(t)\);
+	(ii) the parameter set \(\theta\) (nominal or one of the synthetic athletes from \S6.2);
+	(iii) the state trajectory \(z(t) = (A,N,F_a,F_c,S,I)\) produced by the ODE; and
+	(iv) summary decision metrics computed on \(P(t)\), e.g., peak value and timing, mean readiness over a horizon, and simple risk proxies such as time with \(I\) above a threshold.
+	
+	\paragraph{What we deliver in this section.}
+	Because of time constraints we do not recompute long‑term equilibria or eigenstructures for each regime (cf.\ Section~\ref{sec:long-term}, which lays out the qualitative analysis to be done). Instead, we summarize the deterministic runs already reported in \S6.3 (Table~4 and Fig.~2) and organize those findings into practical “solution patterns’’ that a coach can act on. Where a computation would be expected (e.g., an eigenvalue check near a regime’s quasi‑steady weekly pattern), we clearly mark it as future work.
+	
+	\subsection{Transferability: generalizing the solution to other sports and event goals}
+	Our architecture is explicitly \emph{left–center–right}: inputs \(\rightarrow\) six ODE states \(\rightarrow\) readiness. This separation makes the approach portable:
+	
+	\begin{itemize}
+		\item \textbf{Map session types.} Endurance (\(u_E\)), HIIT/anaerobic (\(u_H\)) and strength/plyometrics (\(u_S\)) cover the dominant adaptation pathways across running, cycling, field sports, and court sports. In sport‑specific settings, replace the raw units with a calibrated impulse (e.g., TRIMP or zone minutes for \(u_E\), interval score for \(u_H\), tonnage/contacts for \(u_S\)).
+		\item \textbf{Keep the sleep layer intact.} The bedtime kernel \(B(t)\) and sleep opportunity \(s(t)\) are sport‑agnostic; only the kernel weights \((\beta_E,\beta_H,\beta_S)\) and the efficiency slope \(\eta\) need retuning to new populations.
+		\item \textbf{Retarget readiness.} Endurance‑major events use \(w_{\text{end}}\gg w_{\text{str}}\); strength‑power events reverse that. Penalties \((\lambda_a,\lambda_c,\lambda_s,\lambda_i)\) can be tuned to the event’s “availability” constraints (e.g., team sports may penalize \(I\) more heavily than \(F_a\)).
+		\item \textbf{Weekly invariance.} If a regime repeats weekly, the Poincaré map over 7 days is the natural long‑term object. In future work we will compute the fixed point(s) and their stability for each canonical regime to fully parallel the reference report’s long‑term analysis.
+	\end{itemize}
+	
+	\subsection{Recap of deterministic runs and practical interpretation}\label{subsec:recap-runs}
+	Table~4 and Fig.~2 in \S6.3 already illustrate the model’s behavior for representative (athlete, regime) pairs over 21–42 days. We restate and interpret those findings here by mechanism, to make their origin in the ODE transparent:
+	
+	\begin{description}
+		\item[Early vs.\ evening intensity (Nominal).] The early‑AM HIIT and evening‑intensity schedules attained comparable short‑term peaks \(P_{\max}\), but the \emph{mean} readiness was lower for evening sessions. Mechanistically this is the \(q(B)\) penalty: late work increases \(B(t)\), diminishes sleep efficiency, and shrinks the sleep‑accelerated clearance terms in \((F_a),(F_c),(S),(I)\), depressing the envelope on following days. \emph{Expected quantitative check (future):} Compare weekly mean \(P\) across months while holding \(\int(u_E+u_H+u_S)\) fixed; compute the eigenvalues of the 7‑day Poincaré map to confirm stability.
+		\item[Midday polarized block (SA‑E).] For an aerobic responder, a high‑volume \(u_E\) with a small midday \(u_H\) gave the largest envelope and highest mean \(P\). Here stronger \(k_A\), milder \(G_{\text{int}}(u_E)\), and small \(B(t)\) combine to raise \(A\) while keeping \(F_c,S\) in check. \emph{Expected quantitative check:} sensitivity of the envelope to \(\mu_E\) (interference) and \(\rho_c\) (sleep‑helped clearance).
+		\item[Split day (SA‑S).] AM \(u_E\) + PM \(u_S\) leverages larger \(k_N\) and \(u_S\)-weighting but pays a sleep cost (higher \(B(t)\)): peaks remain strong, while the mean \(P\) is similar to the Nominal early‑AM condition. \emph{Expected check:} how much earlier must the \(u_S\) block move to recoup the mean without sacrificing the \(N\) stimulus?
+		\item[Alternating hard/easy (SA‑R).] With tighter recovery gate \(G_{\text{rec}}(S,F_c)\) and slower clearances, the alternating microcycle peaks later and lower. The same SA‑R athlete benefits substantially from a \emph{sleep‑extension + nap} block, which expands \(s(t)\) and thereby multiplies the nightly clearance terms. \emph{Expected check:} quantify the marginal gain in weekly mean \(P\) per extra 30–45 minutes of nightly sleep.
+		\item[Taper (Nominal).] A three‑week volume reduction with preserved short \(u_H\) and earlier sessions exhibits the expected rebound: \(F_a\downarrow\to F_c\downarrow\), \(S,I\downarrow\) while \(A,N\) are maintained by saturation. \emph{Expected check:} explore time‑to‑peak as a function of taper half‑life, confirming event‑week planning heuristics.
+	\end{description}
+	
+	\subsection{In‑practice workflow (deterministic use)}
+	A practical three‑step workflow emerges from the architecture:
+	\begin{enumerate}
+		\item \textbf{Pick a parameter set} (Nominal or a synthetic athlete from \S6.2) that best matches the athlete’s phenotype.
+		\item \textbf{Encode the candidate training block} as input streams \(u_E,u_H,u_S\), a sleep schedule \(s(t)\) (plus naps), and a lights‑out time for \(B(t)\). For event weeks, scale volume down while keeping short intensity earlier in the day.
+		\item \textbf{Simulate and read out \(P(t)\).} Record \(P_{\max}\), time‑to‑peak, mean \(P\), and a risk fraction \(\mathbb{P}[I>I_{\text{hi}}]\). Compare blocks on these summaries and on the mechanism‑aware trends explained above.
+	\end{enumerate}
+	
+	\subsection{Caveats for this section}
+	All “expected checks’’ above should be substantiated by (i) computing weekly Poincaré maps under stationary inputs; and (ii) verifying that the nonnegative invariant set defined by the gates is attractive under those inputs.
+	
+
+	\section{Discussion}\label{sec:discussion}
+	
+	\subsection{Strengths}
+	\paragraph{Mechanistic transparency.}
+	Each term in \((A)\)–\((I)\) has a physiological role (stimulus, gate, saturation, or clearance), obeys sign rules, and preserves positivity without ad hoc clipping. This makes regimes easy to reason about: moving a session later increases \(B\), which reduces \(q(B)\), which shrinks \emph{specific} clearance terms.
+	
+	\paragraph{Portability and modularity.}
+	The left–center–right separation simplifies both transfer to other sports (retargeting \(w_{\cdot}\) and \(\lambda_{\cdot}\)) and code maintenance (inputs and ODE are decoupled). The same six states can be interrogated with different readiness weightings for distinct event profiles.
+	
+	\paragraph{Deterministic synthetic athletes.}
+	Using three coherent parameter regimes (SA‑E, SA‑S, SA‑R) lets us reason about inter‑individual differences without a probabilistic layer. It also surfaces which couplings matter (e.g., \(\mu_E\) for interference; \(c_S,c_c\) for recovery gating).
+	
+	\subsection{Weaknesses and threats to validity}
+	\paragraph{Deterministic parameters.}
+	Point estimates ignore uncertainty. In real deployment, parameter posteriors should be estimated from observed logs (Section~\ref{sec:extensions}).
+	
+	\paragraph{State aggregation.}
+	The six states are coarse (e.g., one \(I\) for heterogeneous tissues). This is deliberate for parsimony, but it limits tissue‑specific prescriptions.
+	
+	\paragraph{Simplified sleep kernel.}
+	The bedtime kernel \(B(t)\) is a short exponential memory, not a full circadian model. It captures “how late,” not chronotype, chronotherapy, or sleep fragmentation.
+	
+	\paragraph{Measurement mappings.}
+	Our observation proxies (e.g., field tests for \(A,N\), HRV/sleep for \(S\)) require calibration choices that we did not execute here due to time constraints (see \S\ref{sec:extensions}).
+	
+	\subsection{Why we did not implement policy optimization}
+	The reference report concluded with a normative “utility function \(\rightarrow\) optimizer \(\rightarrow\) policy’’ loop. In our context the direct analogue would be: choose a regime schedule and sleep hygiene policy to maximize time‑averaged \(P\) subject to risk constraints (\(I\le I_{\text{max}}\)) and time budgets. Implementing this credibly requires (i) a calibrated athlete (parameters estimated with uncertainty); (ii) long‑horizon stability checks (weekly Poincaré analysis); and (iii) clear practical constraints. We did not have time to complete those prerequisites. We therefore stop at mechanism‑driven recommendations from deterministic runs and defer the optimization layer.
+	
+
+	\section{Conclusion}\label{sec:conclusion}
+	
+	\paragraph{What we built.}
+	We developed a compact six‑state ODE that couples trainable capacities (\(A,N\)), two‑scale fatigue (\(F_a,F_c\)), sleep debt/quality (\(S\)), and micro‑damage (\(I\)) to exogenous inputs for training, sleep, nutrition, and context. A readiness aggregator \(P(t)\) then supports regime comparison, taper design, and simple risk monitoring.
+	
+	\paragraph{What we learned deterministically.}
+	Even without the full stability analysis of Section 7, the deterministic runs in \S6.3 yield coherent, mechanism‑consistent guidance: move key intensity earlier to protect sleep‑accelerated clearance; place high‑volume endurance in midday for aerobic responders; use alternating microcycles and sleep extension for recovery‑limited profiles; and taper by reducing volume, keeping short intensity, and training earlier in event week.
+	
+	\paragraph{What we did not have time to compute.}
+	We regret not executing (i) the long‑term equilibria/eigenvalue program for each regime (the analog of Section~7 in the reference report), and (ii) a normative optimizer that turns model structure into concrete schedule recommendations. Both are feasible next steps.
+	
+	\subsection{Extensions and next steps}\label{sec:extensions}
+	\paragraph{(E1) Long‑term analysis.}
+	For weekly repeating regimes, compute the 7‑day Poincaré map, its fixed point(s), and Jacobian eigenvalues; confirm attraction and compare steady‑state envelopes of \(P\).
+	
+	\paragraph{(E2) Normative regime design.}
+	Formulate a constrained optimization that maximizes \(\bar{P}\) (or event‑week \(P_{\max}\)) subject to \(I(t)\le I_{\text{max}}\), session‑time windows, and total weekly impulse. Use simple NLP or dynamic programming with weekly decision variables.
+	
+	\paragraph{(E3) Bayesian calibration.}
+	Replace point estimates by priors for \(\theta\) (time constants, gates, penalties) and estimate posteriors from athlete logs. The observation model can link \(A,N\) to field tests; \(F_a\) to session RPE or neuromuscular decrements; \(S\) to actigraphy/HRV; \(I\) to soreness and time‑loss incidents. Forward simulation remains our ODE; Section~6 can then be reinterpreted as posterior predictive analysis instead of single‑curve runs.
+	
+	\paragraph{(E4) Real‑world deployment.}
+	Run the same program on actual athletes: encode their schedules, collect sleep/HRV and training logs, calibrate \(\theta\), and compare regime variants prospectively.
+	
+
+	\section{Appendix: Reproducibility notes and file map}\label{sec:appendix}
+	
+	\subsection{Code organization}
+		
+	This is our Github Repository: \url{https://github.com/erikmnovak/i_msquared_c_2025}
+	
+	Our deterministic runs use a small Julia module with explicit files:
+	\begin{itemize}
+		\item \texttt{Parameters.jl}: defines \texttt{ModelParams} (nominal values) and three synthetic‑athlete overrides (SA‑E, SA‑S, SA‑R).
+		\item \texttt{Inputs.jl}: regime builders that produce the input streams \(u_E,u_H,u_S\), sleep schedule \(s(t)\), bedtime kernel \(B(t)\), and derived sleep efficiency \(q(B)\).
+		\item \texttt{ODE.jl}: the right‑hand side \(f(z,u)\) implementing equations \((A)\)–\((I)\) with recovery and interference gates.
+		\item \texttt{Readiness.jl}: readiness \(P(t)\) and summary metrics (peak, time‑to‑peak, mean, risk fraction).
+		\item \texttt{Simulation.jl}: solver wrapper (Dormand–Prince) that builds inputs, integrates the ODE, computes \(P(t)\), and prints run summaries.
+		\item \texttt{AthleteModel.jl}: convenience include, exports, and a single import point for the module.\footnote{We keep time units in days; the bedtime kernel integrates over the last hours before lights‑out and feeds the nightly sleep‑efficiency factor \(q(B)\).}
+	\end{itemize}
+	
+	\subsection{Minimal recipe to reproduce Section 6.3}
+	\begin{enumerate}
+		\item Load the module, pick an athlete profile (Nominal/SA‑E/SA‑S/SA‑R), and a regime builder (e.g., early‑AM HIIT, evening intensity, polarized midday, split day, alternating hard/easy, taper, sleep‑extension).
+		\item Call the solver wrapper with horizon and sampling step (e.g., 42 days, save every hour). Save \((t,P(t))\) and, if desired, the six states.
+		\item Plot \(P(t)\) and compute the summary metrics. Use identical plotting limits for apples‑to‑apples comparisons across regime variants.
+	\end{enumerate}
+	
+	\subsection{Units and ranges}
+	Capacities \(A,N\in[0,1]\); fatigue \(F_a,F_c\ge0\); sleep debt \(S\ge0\) (larger is worse); micro‑damage \(I\ge0\). Time constants are in days; the bedtime kernel uses hours internally and contributes to daily clearance via \(q(B)\in(0,1]\). Readiness weights \(w_{\cdot}\) and penalties \(\lambda_{\cdot}\) are dimensionless scalars.
+				
 	
 	\begin{thebibliography}{9}\small
 		\bibitem{Banister1975} E.\,W. Banister, T.\,W. Calvert, et al., \emph{A systems model of training for athletic performance}, Can.\ J.\ Appl.\ Sport Sci., 1975.
@@ -1167,7 +1516,54 @@
 		\bibitem{Skiba2012} P. Skiba et al., \emph{Modeling the expenditure and reconstitution of work capacity above critical power}, Med. Sci. Sports Exerc., 2012.
 	\end{thebibliography}
 	
+	\newpage
 	
+	\section{Speech to the NABC}
+	
+	Good evening everyone, and thank you for the chance to share what our team has been working on.
+	
+	At its heart, our project asks a simple question: How do training, sleep, and recovery come together to make an athlete ready to perform—without courting injury? We built a compact, coach‑friendly model that treats training and recovery like connected dials. When you turn one, the others move. In plain terms, our model takes in a weekly schedule—what kind of training, when you do it, how you sleep, how well you fuel, and what outside stresses you’re under—and it predicts a day‑by‑day “readiness” curve: higher when the body is primed, lower when fatigue or risk is building. Our full write‑up shows how this plays out across common schedules such as early‑morning HIIT, evening intensity, split days, alternating hard/easy weeks, sleep‑extension blocks, and tapers.
+	
+	Here are the four biggest takeaways for coaches, athletes, parents, and program leaders:
+	
+	1. Timing matters—especially at night. The same hard session done late in the evening tends to blunt that night’s sleep quality and pushes down next‑day readiness. When possible, put key intensity earlier in the day, and protect “lights‑out” time so sleep can do its job.
+	
+	2. Different athletes, different wins. We tested three realistic “profiles”: an endurance‑leaning responder, a power/neuromuscular responder, and a recovery‑limited athlete. The best average readiness came from aligning the block with the athlete: e.g., midday polarized endurance for the aerobic responder, split‑day with PM strength (used sparingly) for the power responder, and sleep‑extension plus a short early‑afternoon nap for the recovery‑limited athlete.
+	
+	3. Plan recovery like you plan workouts. Readiness climbs not just with training, but with good sleep and steady nutrition that speed up repair. Short tapers that reduce volume while keeping brief intensity reliably nudge readiness to a peak about a week into the taper window—useful for meet and race planning.
+	
+	4. Track a few simple signals. You don’t need a lab. Keep a running log of: session type and time of day, a 1–10 fatigue or soreness check‑in, bedtime and sleep duration, and a quick note on life stress. Those four lines of data help you spot when to move a hard session earlier, swap in a recovery day, or add a nap policy during heavy blocks.
+	
+	What can the community do now?
+	
+	Schools and clubs: Encourage earlier start times for key intensity sessions when logistics allow; make “quiet hours” before bedtime part of team culture during heavy training.
+	
+	Coaches: Build microcycles that breathe—alternate hard and easy days, and use sleep‑extension blocks before a big push.
+	
+	Parents and athletes: Treat sleep as training. A consistent wind‑down, cool/dark room, and realistic homework windows help as much as a new pair of spikes.
+	
+	Organizers: For travel or heat stress weeks, lower evening intensity and plan team naps or quiet rest periods after lunch.
+	
+	Two final notes. First, we designed this to be sport‑agnostic and practical; the math lives under the hood so coaches can focus on schedules and habits. Second, we’re transparent about limitations: we did not have time to run a full stability analysis or policy optimization this cycle, and we used synthetic athlete profiles rather than large in‑season datasets. Next steps are clear: pilot the model with real teams, and—when time allows—add a Bayesian layer so the parameters personalize themselves to each athlete’s history. Our full report lays out those steps, and we invite interested programs to collaborate.
+	
+	Thank you. And, here’s to smarter training, better sleep, and healthier seasons.
+	
+	\newpage
+	
+
+	
+	\section{AI Usage report}
+	
+	On principle, I avoided using AI for any actual writing or model creation. However, being a solo participant, I had to use AI on these more repetitive parts of creating the report:
+	\begin{enumerate}
+		\item Creating most tables.
+		\item Writing the skeleton for the code.
+		\item Debugging the code.
+		\item Creating the pgfplot in section 6.
+		\item Creating figure 1.
+		\item Searching the literature for relevant results.
+	\end{enumerate}
+	These were necessary to ensure a clean presentation and that I had a sufficiently ready delivery.
 	
 	
 \end{document}
