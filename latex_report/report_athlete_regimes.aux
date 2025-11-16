@@ -82,7 +82,6 @@
 \citation{Busso2003}
 \citation{Fullagar2015}
 \citation{Gabbett2016}
-\bibcite{Banister1975}{1}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}State--specific assumptions (to guide the ODE forms later)}{6}{subsection.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Aerobic adaptation \(A(t)\).}{6}{section*.21}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Neuromuscular adaptation \(N(t)\).}{6}{section*.22}\protected@file@percent }
@@ -91,14 +90,200 @@
 \@writefile{toc}{\contentsline {paragraph}{Sleep debt / quality \(S(t)\).}{6}{section*.25}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Injury micro--damage \(I(t)\).}{6}{section*.26}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Derived outputs (for later use).}{6}{section*.27}\protected@file@percent }
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Skiba2012}
+\citation{Mujika2003}
+\citation{Hickson1980}
+\citation{Fullagar2015}
+\citation{Buchheit2014}
+\citation{Gabbett2016}
+\citation{Fullagar2015}
+\citation{Buchheit2014}
+\citation{Busso2003}
+\citation{Fullagar2015}
+\citation{Hickson1980}
+\citation{Fullagar2015}
+\citation{Fullagar2015}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Mujika2003}
+\citation{Fullagar2015}
+\citation{Hickson1980}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Model development: a six--state ODE with exogenous controls}{7}{section.4}\protected@file@percent }
+\newlabel{sec:model-development}{{4}{7}{Model development: a six--state ODE with exogenous controls}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preliminaries: inputs, normalizations, and helper functions}{7}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Inputs (left column of Fig.~\ref  {fig:overview-wiring}).}{7}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Gates and saturations.}{7}{section*.29}\protected@file@percent }
+\newlabel{eq:recgate}{{1}{7}{Gates and saturations}{equation.4.1}{}}
+\newlabel{eq:intgate}{{2}{7}{Gates and saturations}{equation.4.2}{}}
+\newlabel{eq:sleepeff}{{3}{7}{Gates and saturations}{equation.4.3}{}}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Mujika2003}
+\citation{Busso2003}
+\citation{Fullagar2015}
+\citation{Busso2003}
+\citation{Gabbett2016}
+\citation{Hickson1980}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}The six ODEs (center of the figure)}{8}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:six-odes}{{4.2}{8}{The six ODEs (center of the figure)}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Top row: trainable capacities.}{8}{section*.30}\protected@file@percent }
+\newlabel{eq:A-expanded}{{4}{8}{Top row: trainable capacities}{equation.4.4}{}}
+\newlabel{eq:N-expanded}{{5}{8}{Top row: trainable capacities}{equation.4.5}{}}
+\citation{Fullagar2015}
+\citation{Busso2003}
+\citation{Buchheit2014}
+\citation{Fullagar2015}
+\citation{Gabbett2016}
+\citation{Mujika2003}
+\@writefile{toc}{\contentsline {paragraph}{Middle row: fatigue on two time scales.}{9}{section*.31}\protected@file@percent }
+\newlabel{eq:Fa-expanded}{{6}{9}{Middle row: fatigue on two time scales}{equation.4.6}{}}
+\newlabel{eq:Fc-expanded}{{7}{9}{Middle row: fatigue on two time scales}{equation.4.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bottom row: sleep debt/quality and micro‑damage (risk).}{9}{section*.32}\protected@file@percent }
+\newlabel{eq:S-expanded}{{8}{9}{Bottom row: sleep debt/quality and micro‑damage (risk)}{equation.4.8}{}}
+\newlabel{eq:I-expanded}{{9}{9}{Bottom row: sleep debt/quality and micro‑damage (risk)}{equation.4.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Readiness aggregator (right column).}{9}{section*.33}\protected@file@percent }
+\newlabel{eq:P-expanded}{{10}{9}{Readiness aggregator (right column)}{equation.4.10}{}}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Hickson1980}
+\citation{Fullagar2015}
+\citation{Buchheit2014}
+\@writefile{toc}{\contentsline {paragraph}{(J1) Positivity and boundedness without ad hoc clipping.}{10}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(J2) Clear separation between \emph  {stimulus}, \emph  {modulation}, and \emph  {dissipation}.}{10}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(J3) Bedtime proximity as a short memory instead of a full circadian submodel.}{10}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(J4) Interference via a \emph  {gate} rather than via cross‑terms in \(\dot  N\).}{10}{section*.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(J5) Minimal parameter collinearity.}{10}{section*.39}\protected@file@percent }
+\newlabel{tab:dimensions}{{4.2}{10}{Dimensional consistency and quick reference}{section*.40}{}}
+\citation{Mujika2003}
+\citation{Fullagar2015}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Well‑posedness and qualitative properties}{11}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}From regimes to inputs (how schedules drive the ODE)}{11}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Model summary and parameter inventory}{11}{section.5}\protected@file@percent }
+\newlabel{sec:final-model}{{5}{11}{Model summary and parameter inventory}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Compact statement of the six ODEs}{11}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:compact-odes}{{5.1}{11}{Compact statement of the six ODEs}{subsection.5.1}{}}
+\newlabel{eq:compactA}{{{$\mathcal  {A}$}}{11}{Compact statement of the six ODEs}{AMS.49}{}}
+\newlabel{eq:compactN}{{{$\mathcal  {N}$}}{11}{Compact statement of the six ODEs}{AMS.50}{}}
+\newlabel{eq:compactFa}{{{$\mathcal  {F}_a$}}{11}{Compact statement of the six ODEs}{AMS.51}{}}
+\newlabel{eq:compactFc}{{{$\mathcal  {F}_c$}}{11}{Compact statement of the six ODEs}{AMS.52}{}}
+\newlabel{eq:compactS}{{{$\mathcal  {S}$}}{11}{Compact statement of the six ODEs}{AMS.53}{}}
+\newlabel{eq:compactI}{{{$\mathcal  {I}$}}{11}{Compact statement of the six ODEs}{AMS.54}{}}
+\gdef \LT@i {\LT@entry 
+    {1}{102.5922pt}\LT@entry 
+    {1}{111.65349pt}\LT@entry 
+    {1}{247.54523pt}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Inputs and helper relations (definitions)}{12}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:inputs-helpers}{{5.2}{12}{Inputs and helper relations (definitions)}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Output (readiness)}{12}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:output-P}{{5.3}{12}{Output (readiness)}{subsection.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Variables and parameters (grouped inventory)}{12}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:inventory}{{5.4}{12}{Variables and parameters (grouped inventory)}{subsection.5.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{Variables and parameters used in the six–equation ODE and associated input/output relations (time dependence suppressed for readability).}}{12}{table.1}\protected@file@percent }
+\newlabel{tab:inventory}{{1}{12}{Variables and parameters used in the six–equation ODE and associated input/output relations (time dependence suppressed for readability)}{table.1}{}}
+\citation{Skiba2012}
+\citation{Buchheit2014}
+\citation{Gabbett2016}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Mujika2003}
+\citation{Hickson1980}
+\citation{Fullagar2015}
+\citation{Buchheit2014}
+\citation{Gabbett2016}
+\@writefile{toc}{\contentsline {paragraph}{Notes on usage.}{14}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Parameter estimation and prior specification}{14}{section.6}\protected@file@percent }
+\newlabel{sec:estimation}{{6}{14}{Parameter estimation and prior specification}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Data sources and normalization}{14}{subsection.6.1}\protected@file@percent }
+\newlabel{sec:data-normalization}{{6.1}{14}{Data sources and normalization}{subsection.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Literature anchors used for priors}{14}{subsection.6.2}\protected@file@percent }
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Hickson1980}
+\citation{Busso2003}
+\citation{Mujika2003}
+\citation{Gabbett2016}
+\citation{Hickson1980}
+\citation{Busso2003}
+\citation{Fullagar2015}
+\citation{Busso2003}
+\citation{Fullagar2015}
+\citation{Busso2003}
+\citation{Buchheit2014}
+\citation{Fullagar2015}
+\citation{Gabbett2016}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Priors for the six ODEs}{15}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:priors-odes}{{6.3}{15}{Priors for the six ODEs}{subsection.6.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Top row — capacities $A,N$ (\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S1}\unskip \@@italiccorr )}}–\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S2}\unskip \@@italiccorr )}}).}{15}{section*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Middle row — fatigue $F_a,F_c$ (\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S3}\unskip \@@italiccorr )}}–\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S4}\unskip \@@italiccorr )}}).}{15}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bottom row — sleep debt $S$ and micro‑damage $I$ (\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S5}\unskip \@@italiccorr )}}–\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:S6}\unskip \@@italiccorr )}}).}{15}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Priors for auxiliary relations (left/right columns)}{15}{subsection.6.4}\protected@file@percent }
+\newlabel{sec:priors-aux}{{6.4}{15}{Priors for auxiliary relations (left/right columns)}{subsection.6.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bedtime kernel and sleep efficiency.}{15}{section*.59}\protected@file@percent }
+\citation{Fullagar2015}
+\citation{Fullagar2015}
+\citation{Busso2003}
+\citation{Hickson1980}
+\citation{Mujika2003}
+\citation{Gabbett2016}
+\gdef \LT@ii {\LT@entry 
+    {1}{120.71478pt}\LT@entry 
+    {1}{220.36827pt}\LT@entry 
+    {1}{120.71478pt}}
+\@writefile{toc}{\contentsline {paragraph}{Readiness aggregation $P=w_{\rm  end}A+w_{\rm  str}N-\phi _aF_a-\phi _cF_c-\phi _sS-\phi _iI$.}{16}{section*.60}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Initial conditions}{16}{subsection.6.5}\protected@file@percent }
+\newlabel{sec:initials}{{6.5}{16}{Initial conditions}{subsection.6.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Identifiability and staged calibration plan}{16}{subsection.6.6}\protected@file@percent }
+\newlabel{sec:identifiability-plan}{{6.6}{16}{Identifiability and staged calibration plan}{subsection.6.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7}Prior summary tables}{16}{subsection.6.7}\protected@file@percent }
+\newlabel{sec:prior-tables}{{6.7}{16}{Prior summary tables}{subsection.6.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{Prior distributions for parameters (time dependence suppressed; units in days or day$^{-1}$ as indicated).}}{16}{table.2}\protected@file@percent }
+\citation{Hickson1980}
+\citation{Fullagar2015}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8}Sensitivity of priors (what matters most)}{17}{subsection.6.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.9}What we \emph  {did not} include (and why)}{17}{subsection.6.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.10}Likelihood specification and observation model}{17}{subsection.6.10}\protected@file@percent }
+\newlabel{sec:likelihood}{{6.10}{17}{Likelihood specification and observation model}{subsection.6.10}{}}
+\citation{Skiba2012}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Buchheit2014}
+\citation{Fullagar2015}
+\@writefile{toc}{\contentsline {paragraph}{Time grid, inputs, and helper signals.}{18}{section*.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Forward model (deterministic skeleton).}{18}{section*.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Process noise (innovation).}{18}{section*.63}\protected@file@percent }
+\newlabel{eq:state-innov}{{16}{18}{Process noise (innovation)}{equation.6.16}{}}
+\@writefile{toc}{\contentsline {paragraph}{Observation calendar.}{18}{section*.64}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Capacity observations \(A,N\) (field tests).}{18}{section*.66}\protected@file@percent }
+\newlabel{eq:likeA}{{17}{18}{Capacity observations \(A,N\) (field tests)}{equation.6.17}{}}
+\newlabel{eq:likeN}{{18}{18}{Capacity observations \(A,N\) (field tests)}{equation.6.18}{}}
+\@writefile{toc}{\contentsline {paragraph}{Acute fatigue \(F_a\) (session‑level load proxy).}{18}{section*.67}\protected@file@percent }
+\newlabel{eq:likeFa}{{19}{18}{Acute fatigue \(F_a\) (session‑level load proxy)}{equation.6.19}{}}
+\@writefile{toc}{\contentsline {paragraph}{Chronic fatigue \(F_c\) (autonomic markers).}{18}{section*.68}\protected@file@percent }
+\newlabel{eq:likeFc}{{20}{18}{Chronic fatigue \(F_c\) (autonomic markers)}{equation.6.20}{}}
+\citation{Gabbett2016}
+\@writefile{toc}{\contentsline {paragraph}{Sleep debt \(S\) (actigraphy/diary efficiency).}{19}{section*.69}\protected@file@percent }
+\newlabel{eq:likeS}{{21}{19}{Sleep debt \(S\) (actigraphy/diary efficiency)}{equation.6.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Micro‑damage \(I\) (soreness + injury events).}{19}{section*.70}\protected@file@percent }
+\newlabel{eq:likeI-vas}{{22}{19}{Micro‑damage \(I\) (soreness + injury events)}{equation.6.22}{}}
+\newlabel{eq:likeI-injury}{{23}{19}{Micro‑damage \(I\) (soreness + injury events)}{equation.6.23}{}}
+\citation{Skiba2012}
+\citation{Banister1975}
+\citation{Busso2003}
+\citation{Buchheit2014}
+\citation{Fullagar2015}
+\citation{Gabbett2016}
+\bibcite{Banister1975}{1}
 \bibcite{Busso2003}{2}
+\newlabel{eq:joint-like}{{24}{20}{Joint likelihood (factorization)}{equation.6.24}{}}
 \bibcite{Mujika2003}{3}
 \bibcite{Hickson1980}{4}
 \bibcite{Fullagar2015}{5}
 \bibcite{Buchheit2014}{6}
 \bibcite{Gabbett2016}{7}
 \bibcite{Skiba2012}{8}
-\newlabel{LastPage}{{}{7}{}{page.7}{}}
-\xdef\lastpage@lastpage{7}
-\xdef\lastpage@lastpageHy{7}
-\gdef \@abspage@last{7}
+\newlabel{LastPage}{{}{21}{}{page.21}{}}
+\xdef\lastpage@lastpage{21}
+\xdef\lastpage@lastpageHy{21}
+\gdef \@abspage@last{21}

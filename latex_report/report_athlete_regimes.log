@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.5.29)  15 NOV 2025 16:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.5.29)  15 NOV 2025 18:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,7 +860,38 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip76
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 61.
-\c@theorem=\count332
+
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen298
+\lightrulewidth=\dimen299
+\cmidrulewidth=\dimen300
+\belowrulesep=\dimen301
+\belowbottomsep=\dimen302
+\aboverulesep=\dimen303
+\abovetopsep=\dimen304
+\cmidrulesep=\dimen305
+\cmidrulekern=\dimen306
+\defaultaddspace=\dimen307
+\@cmidla=\count332
+\@cmidlb=\count333
+\@aboverulesep=\dimen308
+\@belowrulesep=\dimen309
+\@thisruleclass=\count334
+\@lastruleclass=\count335
+\@thisrulewidth=\dimen310
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen311
+\ar@mcellbox=\box74
+\extrarowheight=\dimen312
+\NC@list=\toks53
+\extratabsurround=\skip77
+\backup@length=\skip78
+\ar@cellbox=\box75
+)
+\c@theorem=\count336
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -869,38 +900,38 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
 (./report_athlete_regimes.aux)
 \openout1 = `report_athlete_regimes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 229.
-LaTeX Font Info:    ... okay on input line 229.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 232.
+LaTeX Font Info:    ... okay on input line 232.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count333
-\scratchdimen=\dimen298
-\scratchbox=\box74
-\nofMPsegments=\count334
-\nofMParguments=\count335
-\everyMPshowfont=\toks53
-\MPscratchCnt=\count336
-\MPscratchDim=\dimen299
-\MPnumerator=\count337
-\makeMPintoPDFobject=\count338
-\everyMPtoPDFconversion=\toks54
+\scratchcounter=\count337
+\scratchdimen=\dimen313
+\scratchbox=\box76
+\nofMPsegments=\count338
+\nofMParguments=\count339
+\everyMPshowfont=\toks54
+\MPscratchCnt=\count340
+\MPscratchDim=\dimen314
+\MPnumerator=\count341
+\makeMPintoPDFobject=\count342
+\everyMPtoPDFconversion=\toks55
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -918,18 +949,18 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-LaTeX Info: Redefining \microtypecontext on input line 229.
-Package microtype Info: Applying patch `item' on input line 229.
-Package microtype Info: Applying patch `toc' on input line 229.
-Package microtype Info: Applying patch `eqnum' on input line 229.
-Package microtype Info: Applying patch `footnote' on input line 229.
+LaTeX Info: Redefining \microtypecontext on input line 232.
+Package microtype Info: Applying patch `item' on input line 232.
+Package microtype Info: Applying patch `toc' on input line 232.
+Package microtype Info: Applying patch `eqnum' on input line 232.
+Package microtype Info: Applying patch `footnote' on input line 232.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 229.
+LaTeX Info: Redefining \showhyphens on input line 232.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -940,7 +971,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 229.
+(lastpage)             ! on input line 232.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -978,7 +1009,7 @@ Package lastpage Info: Please have a look at the pageslts package at
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 229.
+Package hyperref Info: Link coloring ON on input line 232.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -988,17 +1019,17 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count339
+\c@section@level=\count343
 )
-LaTeX Info: Redefining \ref on input line 229.
-LaTeX Info: Redefining \pageref on input line 229.
-LaTeX Info: Redefining \nameref on input line 229.
+LaTeX Info: Redefining \ref on input line 232.
+LaTeX Info: Redefining \pageref on input line 232.
+LaTeX Info: Redefining \nameref on input line 232.
 
 (./report_athlete_regimes.out) (./report_athlete_regimes.out)
 \@outlinefile=\write4
 \openout4 = `report_athlete_regimes.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 232
+LaTeX Font Info:    Trying to load font information for U+msa on input line 235
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -1007,7 +1038,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 232
+LaTeX Font Info:    Trying to load font information for U+msb on input line 235
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1017,21 +1048,21 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 23
-2.
+5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Trying to load font information for U+esvect on input line 
-232.
+235.
 
 (/usr/share/texlive/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 )
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 232.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 235.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 232.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 235.
 
 (./report_athlete_regimes.toc
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
@@ -1045,56 +1076,259 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<coupling_diagram_1.png, id=57, 686.565pt x 427.196pt>
+<coupling_diagram_1.png, id=163, 686.565pt x 427.196pt>
 File: coupling_diagram_1.png Graphic file (type png)
 <use coupling_diagram_1.png>
-Package pdftex.def Info: coupling_diagram_1.png  used on input line 262.
+Package pdftex.def Info: coupling_diagram_1.png  used on input line 265.
 (pdftex.def)             Requested size: 452.9679pt x 281.84593pt.
- [2 <./coupling_diagram_1.png>] [3] [4]
+ [2 <./coupling_diagram_1.png>] [3] [4] [5] [6] [7] [8] [9] [10]
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 681.
 
-LaTeX Warning: Reference `sec:model-development' on page 5 undefined on input l
-ine 353.
+Overfull \hbox (6.6025pt too wide) detected at line 711
+[]
+ []
 
-[5] [6] 
+[11]
+Overfull \hbox (8.82301pt too wide) in alignment at lines 726--732
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82301pt too wide) in alignment at lines 732--737
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82301pt too wide) in alignment at lines 737--741
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82301pt too wide) in alignment at lines 741--743
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82301pt too wide) in alignment at lines 743--816
+ [] [] [] 
+ []
+
+[12] [13] [14]
+
+LaTeX Warning: Reference `eq:S1' on page 15 undefined on input line 864.
+
+
+LaTeX Warning: Reference `eq:S2' on page 15 undefined on input line 864.
+
+
+LaTeX Warning: Reference `eq:S3' on page 15 undefined on input line 884.
+
+
+LaTeX Warning: Reference `eq:S4' on page 15 undefined on input line 884.
+
+
+Overfull \hbox (10.09813pt too wide) in paragraph at lines 893--895
+[]$\OML/cmm/m/it/10 ^^X[]$ \T1/cmr/m/n/10 (-20) (con-text stress $\OMS/cmsy/m/n
+/10 ! \OML/cmm/m/it/10 F[]$\T1/cmr/m/n/10 (-20) ): $\OMS/cmsy/m/n/10 N[]\OT1/cm
+r/m/n/10 (-20) (0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 2\OML/cmm/m/it/10 ; \O
+T1/cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 15[])$\T1/cmr/m/n/
+10 (-20) ; $\OML/cmm/m/it/10 ^^X[]$ \T1/cmr/m/n/10 (-20) (into $\OML/cmm/m/it/1
+0 F[]$\T1/cmr/m/n/10 (-20) ) $\OMS/cmsy/m/n/10 N[]\OT1/cmr/m/n/10 (-20) (0\OML/
+cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 05\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (-20) 0
+\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 05[])$\T1/cmr/m/n/10 (-20) , of-ten nea
+r zero. Travel/heat/psych
+ []
+
+
+LaTeX Warning: Reference `eq:S5' on page 15 undefined on input line 898.
+
+
+LaTeX Warning: Reference `eq:S6' on page 15 undefined on input line 898.
+
+
+Overfull \hbox (33.40598pt too wide) in paragraph at lines 905--907
+[]$\OML/cmm/m/it/10 ^^\[]$ \T1/cmr/m/n/10 (-20) (re-pair time): $[]\OT1/cmr/m/n
+/10 (-20) ([] 14\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT
+1/cmr/m/n/10 (-20) 5[])$ \T1/cmr/m/n/10 (-20) days; $\OML/cmm/m/it/10  []$ \T1/
+cmr/m/n/10 (-20) (sleep[]accelerated re-pair): $\OMS/cmsy/m/n/10 N[]\OT1/cmr/m/
+n/10 (-20) (0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 25\OML/cmm/m/it/10 ; \OT1/
+cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 15[])$\T1/cmr/m/n/10 
+(-20) ; $\OML/cmm/m/it/10  []$ \T1/cmr/m/n/10 (-20) (nutrition[]accelerated
+ []
+
+[15]
+Overfull \hbox (8.82994pt too wide) in alignment at lines 957--962
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82994pt too wide) in alignment at lines 962--966
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82994pt too wide) in alignment at lines 966--968
+ [] [] [] 
+ []
+
+
+Overfull \hbox (8.82994pt too wide) in alignment at lines 968--970
+ [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 972--973
+[]|\T1/cmr/m/n/10 (+20) fixed 1 (or
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 974--975
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 50\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OM
+L/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 4[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Overfull \hbox (4.04924pt too wide) in paragraph at lines 979--980
+[]|$[]\OT1/cmr/m/n/10 (-20) ([][0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 6\OML/
+cmm/m/it/10 ; \OT1/cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20) 9\
+OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (-20
+) 5]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (-20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10
+ (-20) 35[])$| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 980--981
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML
+/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 35[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
+[]|$\OMS/cmsy/m/n/10 N[]\OT1/cmr/m/n/10 (+20) (0\OML/cmm/m/it/10 :\OT1/cmr/m/n/
+10 (+20) 05\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML/cmm/m/it/10 :\OT1/cmr
+/m/n/10 (+20) 05[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 985--985
+[]|\T1/cmr/bx/n/10 (+20) Sleep & Dam-age
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 3\OML/
+cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 4[
+])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 986--987
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 6\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML
+/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 4[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 990--991
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 14\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OM
+L/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 5[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 990--991
+\OMS/cmsy/m/n/10 N[]\OT1/cmr/m/n/10 (+20) (0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (
++20) 25\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML/cmm/m/it/10 :\OT1/cmr/m/n
+/10 (+20) 15[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 1226) in paragraph at lines 992--992
+[]|\T1/cmr/bx/n/10 (+20) Kernel & Sleep eff.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 992--993
+[]|$[]\OT1/cmr/m/n/10 (+20) ([] 6\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML
+/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 25[])$\T1/cmr/m/n/10 (+20) ;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 994--995
+[]|$[]\OT1/cmr/m/n/10 (+20) (18\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 3)$\T1/
+cmr/m/n/10 (+20) ;
+ []
+
+
+Overfull \hbox (8.82994pt too wide) in alignment at lines 970--998
+ [] [] [] 
+ []
+
+[16]
+Overfull \hbox (8.01268pt too wide) in paragraph at lines 1017--1022
+\T1/cmr/m/n/10 (-20) This sec-tion de-fines how real (or syn-thetic) ob-ser-va-
+tions are linked to the la-tent states $\OT1/cmr/bx/n/10 (-20) z \OT1/cmr/m/n/1
+0 (-20) = [\OML/cmm/m/it/10 A; N; F[]; F[]; S; I\OT1/cmr/m/n/10 (-20) ][]$
+ []
+
+[17]
+Overfull \hbox (5.15407pt too wide) in paragraph at lines 1077--1078
+ []\T1/cmr/bx/n/10 (-20) Chronic fa-tigue $\OML/cmm/m/it/10 F[]$ \T1/cmr/bx/n/1
+0 (-20) (au-to-nomic mark-ers).[] \T1/cmr/m/n/10 (-20) We map to HRV[]based re-
+cov-ery in-dices or resting[]heart[]rate
+ []
+
+[18] [19] [20] 
 AED: lastpage setting LastPage
-[7] (./report_athlete_regimes.aux)
+[21] (./report_athlete_regimes.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `report_athlete_regimes.out' has not changed.
 
-(rerunfilecheck)             Checksum: B0372A56E97DD7231205A008DC632A24;1210.
+(rerunfilecheck)             Checksum: A228AE3F122AD0202478852D03202132;6710.
  ) 
 Here is how much of TeX's memory you used:
- 30967 strings out of 478287
- 577133 string characters out of 5849289
- 917810 words of memory out of 5000000
- 48281 multiletter control sequences out of 15000+600000
- 499049 words of font info for 208 fonts, out of 8000000 for 9000
+ 31491 strings out of 478287
+ 583898 string characters out of 5849289
+ 955266 words of memory out of 5000000
+ 48524 multiletter control sequences out of 15000+600000
+ 513532 words of font info for 301 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,6n,80p,1019b,558s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
-fb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf
-/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/
-cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pf
-b></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/
-fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/c
-m-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb
-></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/f
-onts/type1/public/cm-super/sfti1000.pfb>
-Output written on report_athlete_regimes.pdf (7 pages, 485735 bytes).
+ 84i,19n,80p,1019b,580s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/
+fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share
+/texmf/fonts/type1/public/cm-super/sfbi1000.pfb></usr/share/texmf/fonts/type1/p
+ublic/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1
+000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/
+texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/pu
+blic/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm09
+00.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/t
+exmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/pub
+lic/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti090
+0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on report_athlete_regimes.pdf (21 pages, 778449 bytes).
 PDF statistics:
- 325 PDF objects out of 1000 (max. 8388607)
- 271 compressed objects within 3 object streams
- 96 named destinations out of 1000 (max. 500000)
- 49218 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 791 PDF objects out of 1000 (max. 8388607)
+ 678 compressed objects within 7 object streams
+ 207 named destinations out of 1000 (max. 500000)
+ 71914 words of extra memory for PDF output out of 74296 (max. 10000000)
 
